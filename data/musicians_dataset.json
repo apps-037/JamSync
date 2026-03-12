@@ -1,0 +1,1975 @@
+[
+  {
+    "id": 1,
+    "name": "Cameron Park",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Pop",
+      "Blues"
+    ],
+    "availability": [
+      "Sat_21-00",
+      "Fri_06-09"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.42,
+    "personality_improviser": 0.03
+  },
+  {
+    "id": 2,
+    "name": "Riley Garcia",
+    "instrument": "Keys",
+    "skill_level": 5,
+    "genres": [
+      "Pop",
+      "Electronic"
+    ],
+    "availability": [
+      "Tue_15-18",
+      "Fri_12-15",
+      "Sun_06-09",
+      "Sun_09-12",
+      "Sat_15-18"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.28,
+    "personality_improviser": 0.22
+  },
+  {
+    "id": 3,
+    "name": "Parker Brown",
+    "instrument": "Guitar",
+    "skill_level": 7,
+    "genres": [
+      "Folk",
+      "Indie"
+    ],
+    "availability": [
+      "Wed_06-09",
+      "Sat_15-18",
+      "Fri_06-09",
+      "Thu_06-09",
+      "Fri_12-15",
+      "Sun_21-00"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.89,
+    "personality_improviser": 0.36
+  },
+  {
+    "id": 4,
+    "name": "Riley Thompson",
+    "instrument": "Guitar",
+    "skill_level": 9,
+    "genres": [
+      "Metal",
+      "Jazz",
+      "Pop"
+    ],
+    "availability": [
+      "Thu_12-15",
+      "Thu_21-00"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.16,
+    "personality_improviser": 0.36
+  },
+  {
+    "id": 5,
+    "name": "Kai Williams",
+    "instrument": "Drums",
+    "skill_level": 5,
+    "genres": [
+      "Jazz",
+      "Blues",
+      "Pop"
+    ],
+    "availability": [
+      "Thu_15-18",
+      "Wed_21-00",
+      "Sat_18-21"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.68,
+    "personality_improviser": 0.84
+  },
+  {
+    "id": 6,
+    "name": "Parker Rivera",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "Folk",
+      "R&B"
+    ],
+    "availability": [
+      "Mon_09-12",
+      "Fri_21-00",
+      "Wed_09-12",
+      "Sat_15-18"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.88,
+    "personality_improviser": 0.64
+  },
+  {
+    "id": 7,
+    "name": "Morgan Williams",
+    "instrument": "Guitar",
+    "skill_level": 9,
+    "genres": [
+      "Electronic",
+      "Metal",
+      "R&B"
+    ],
+    "availability": [
+      "Thu_12-15",
+      "Tue_09-12",
+      "Fri_15-18",
+      "Mon_06-09",
+      "Sun_06-09",
+      "Tue_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.79,
+    "personality_improviser": 0.42
+  },
+  {
+    "id": 8,
+    "name": "Jordan Rodriguez",
+    "instrument": "Vocals",
+    "skill_level": 7,
+    "genres": [
+      "Electronic",
+      "Metal",
+      "Rock",
+      "Folk"
+    ],
+    "availability": [
+      "Sat_18-21",
+      "Sun_12-15"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.11,
+    "personality_improviser": 0.43
+  },
+  {
+    "id": 9,
+    "name": "Finley Chen",
+    "instrument": "Violin",
+    "skill_level": 5,
+    "genres": [
+      "Metal",
+      "Electronic",
+      "Blues",
+      "Indie"
+    ],
+    "availability": [
+      "Sun_21-00",
+      "Wed_21-00"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.61,
+    "personality_improviser": 0.15
+  },
+  {
+    "id": 10,
+    "name": "Parker Singh",
+    "instrument": "Keys",
+    "skill_level": 7,
+    "genres": [
+      "Electronic",
+      "Rock",
+      "Folk"
+    ],
+    "availability": [
+      "Mon_06-09",
+      "Wed_12-15",
+      "Tue_06-09",
+      "Tue_18-21"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.82,
+    "personality_improviser": 0.98
+  },
+  {
+    "id": 11,
+    "name": "Blake King",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "Electronic",
+      "Blues",
+      "Metal"
+    ],
+    "availability": [
+      "Sun_18-21",
+      "Thu_09-12",
+      "Fri_21-00",
+      "Sat_09-12",
+      "Sat_12-15",
+      "Thu_21-00"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.44,
+    "personality_improviser": 0.52
+  },
+  {
+    "id": 12,
+    "name": "Taylor Garcia",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "Indie",
+      "Electronic"
+    ],
+    "availability": [
+      "Fri_09-12",
+      "Mon_06-09",
+      "Sat_21-00"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.23,
+    "personality_improviser": 0.91
+  },
+  {
+    "id": 13,
+    "name": "Phoenix Brown",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Classical",
+      "Pop"
+    ],
+    "availability": [
+      "Tue_21-00",
+      "Fri_18-21",
+      "Thu_09-12",
+      "Sun_15-18",
+      "Tue_06-09"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.66,
+    "personality_improviser": 0.35
+  },
+  {
+    "id": 14,
+    "name": "Dakota Moore",
+    "instrument": "Saxophone",
+    "skill_level": 2,
+    "genres": [
+      "Jazz",
+      "Rock"
+    ],
+    "availability": [
+      "Sat_12-15",
+      "Sun_06-09",
+      "Tue_09-12",
+      "Tue_18-21",
+      "Thu_09-12"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.18,
+    "personality_improviser": 0.46
+  },
+  {
+    "id": 15,
+    "name": "Phoenix Adams",
+    "instrument": "Guitar",
+    "skill_level": 2,
+    "genres": [
+      "Electronic",
+      "Jazz",
+      "Rock",
+      "Folk"
+    ],
+    "availability": [
+      "Sun_06-09",
+      "Mon_09-12",
+      "Tue_15-18",
+      "Thu_15-18"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.0,
+    "personality_improviser": 0.39
+  },
+  {
+    "id": 16,
+    "name": "Marlowe Wright",
+    "instrument": "Bass",
+    "skill_level": 4,
+    "genres": [
+      "Electronic",
+      "Classical"
+    ],
+    "availability": [
+      "Tue_12-15",
+      "Tue_06-09",
+      "Fri_21-00"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.06,
+    "personality_improviser": 0.31
+  },
+  {
+    "id": 17,
+    "name": "Sam Jackson",
+    "instrument": "Vocals",
+    "skill_level": 3,
+    "genres": [
+      "Electronic",
+      "Blues",
+      "Rock",
+      "Metal"
+    ],
+    "availability": [
+      "Sun_09-12",
+      "Mon_18-21"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.68,
+    "personality_improviser": 0.24
+  },
+  {
+    "id": 18,
+    "name": "Taylor Green",
+    "instrument": "Keys",
+    "skill_level": 6,
+    "genres": [
+      "Rock",
+      "Jazz",
+      "R&B"
+    ],
+    "availability": [
+      "Fri_18-21",
+      "Wed_12-15",
+      "Tue_21-00",
+      "Sat_12-15",
+      "Tue_12-15",
+      "Thu_09-12"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.46,
+    "personality_improviser": 0.93
+  },
+  {
+    "id": 19,
+    "name": "Marlowe Lee",
+    "instrument": "Guitar",
+    "skill_level": 4,
+    "genres": [
+      "Indie",
+      "Jazz",
+      "Electronic"
+    ],
+    "availability": [
+      "Tue_18-21",
+      "Wed_09-12",
+      "Wed_06-09",
+      "Tue_12-15",
+      "Thu_18-21"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.61,
+    "personality_improviser": 0.99
+  },
+  {
+    "id": 20,
+    "name": "Cameron Anderson",
+    "instrument": "Guitar",
+    "skill_level": 3,
+    "genres": [
+      "Metal",
+      "Jazz",
+      "Blues",
+      "Classical"
+    ],
+    "availability": [
+      "Mon_21-00",
+      "Fri_09-12"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.28,
+    "personality_improviser": 0.21
+  },
+  {
+    "id": 21,
+    "name": "Skylar Johnson",
+    "instrument": "Drums",
+    "skill_level": 8,
+    "genres": [
+      "Electronic",
+      "Classical",
+      "Metal",
+      "R&B"
+    ],
+    "availability": [
+      "Mon_21-00",
+      "Thu_12-15"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.0,
+    "personality_improviser": 0.77
+  },
+  {
+    "id": 22,
+    "name": "Cameron Williams",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "R&B",
+      "Electronic",
+      "Rock"
+    ],
+    "availability": [
+      "Mon_21-00",
+      "Tue_18-21"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.83,
+    "personality_improviser": 0.58
+  },
+  {
+    "id": 23,
+    "name": "Morgan Wilson",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Rock",
+      "Folk"
+    ],
+    "availability": [
+      "Sat_09-12",
+      "Sat_06-09",
+      "Wed_18-21"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.97,
+    "personality_improviser": 0.75
+  },
+  {
+    "id": 24,
+    "name": "Marlowe Adams",
+    "instrument": "Guitar",
+    "skill_level": 3,
+    "genres": [
+      "Blues",
+      "R&B"
+    ],
+    "availability": [
+      "Tue_21-00",
+      "Wed_15-18"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.27,
+    "personality_improviser": 0.79
+  },
+  {
+    "id": 25,
+    "name": "Taylor Rodriguez",
+    "instrument": "Saxophone",
+    "skill_level": 4,
+    "genres": [
+      "Pop",
+      "Indie",
+      "Classical",
+      "Blues"
+    ],
+    "availability": [
+      "Sun_09-12",
+      "Tue_06-09",
+      "Sat_09-12",
+      "Thu_12-15"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.86,
+    "personality_improviser": 0.97
+  },
+  {
+    "id": 26,
+    "name": "Quinn Davis",
+    "instrument": "Keys",
+    "skill_level": 6,
+    "genres": [
+      "Electronic",
+      "Folk"
+    ],
+    "availability": [
+      "Mon_12-15",
+      "Tue_18-21"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.04,
+    "personality_improviser": 0.6
+  },
+  {
+    "id": 27,
+    "name": "River Young",
+    "instrument": "Bass",
+    "skill_level": 3,
+    "genres": [
+      "Electronic",
+      "Jazz",
+      "R&B"
+    ],
+    "availability": [
+      "Tue_12-15",
+      "Mon_21-00",
+      "Thu_06-09",
+      "Fri_18-21",
+      "Sat_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.36,
+    "personality_improviser": 0.07
+  },
+  {
+    "id": 28,
+    "name": "Kai Adams",
+    "instrument": "Vocals",
+    "skill_level": 6,
+    "genres": [
+      "Jazz",
+      "Metal"
+    ],
+    "availability": [
+      "Wed_21-00",
+      "Thu_12-15",
+      "Thu_21-00",
+      "Wed_18-21",
+      "Tue_09-12"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.68,
+    "personality_improviser": 0.9
+  },
+  {
+    "id": 29,
+    "name": "Drew Jackson",
+    "instrument": "Vocals",
+    "skill_level": 4,
+    "genres": [
+      "Rock",
+      "Metal",
+      "Electronic"
+    ],
+    "availability": [
+      "Thu_18-21",
+      "Fri_21-00",
+      "Wed_15-18"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.44,
+    "personality_improviser": 0.21
+  },
+  {
+    "id": 30,
+    "name": "Reese Wright",
+    "instrument": "Trumpet",
+    "skill_level": 5,
+    "genres": [
+      "Blues",
+      "Jazz",
+      "Metal"
+    ],
+    "availability": [
+      "Sat_21-00",
+      "Fri_12-15",
+      "Mon_09-12",
+      "Sat_12-15",
+      "Tue_09-12",
+      "Tue_06-09"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.24,
+    "personality_improviser": 0.48
+  },
+  {
+    "id": 31,
+    "name": "Phoenix King",
+    "instrument": "Guitar",
+    "skill_level": 4,
+    "genres": [
+      "Indie",
+      "Pop",
+      "R&B"
+    ],
+    "availability": [
+      "Thu_09-12",
+      "Tue_21-00",
+      "Sat_06-09",
+      "Sun_06-09",
+      "Sun_15-18"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.18,
+    "personality_improviser": 0.96
+  },
+  {
+    "id": 32,
+    "name": "Charlie Moore",
+    "instrument": "Guitar",
+    "skill_level": 9,
+    "genres": [
+      "Jazz",
+      "Classical"
+    ],
+    "availability": [
+      "Sun_15-18",
+      "Sat_18-21",
+      "Fri_18-21"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.95,
+    "personality_improviser": 0.89
+  },
+  {
+    "id": 33,
+    "name": "Drew Lopez",
+    "instrument": "Drums",
+    "skill_level": 5,
+    "genres": [
+      "Electronic",
+      "Classical",
+      "Blues"
+    ],
+    "availability": [
+      "Thu_12-15",
+      "Sun_09-12",
+      "Sun_21-00",
+      "Wed_18-21",
+      "Thu_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.27,
+    "personality_improviser": 0.08
+  },
+  {
+    "id": 34,
+    "name": "Sage Garcia",
+    "instrument": "Guitar",
+    "skill_level": 3,
+    "genres": [
+      "Electronic",
+      "Jazz"
+    ],
+    "availability": [
+      "Tue_09-12",
+      "Thu_21-00",
+      "Tue_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.06,
+    "personality_improviser": 0.41
+  },
+  {
+    "id": 35,
+    "name": "Blake Moore",
+    "instrument": "Vocals",
+    "skill_level": 7,
+    "genres": [
+      "R&B",
+      "Indie"
+    ],
+    "availability": [
+      "Sat_06-09",
+      "Sun_18-21",
+      "Thu_15-18",
+      "Mon_12-15",
+      "Wed_15-18",
+      "Sun_15-18"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.75,
+    "personality_improviser": 0.55
+  },
+  {
+    "id": 36,
+    "name": "Drew Green",
+    "instrument": "Guitar",
+    "skill_level": 3,
+    "genres": [
+      "R&B",
+      "Classical"
+    ],
+    "availability": [
+      "Thu_12-15",
+      "Sat_21-00"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.72,
+    "personality_improviser": 0.84
+  },
+  {
+    "id": 37,
+    "name": "Marlowe Blake",
+    "instrument": "Other",
+    "skill_level": 6,
+    "genres": [
+      "R&B",
+      "Rock",
+      "Jazz"
+    ],
+    "availability": [
+      "Tue_15-18",
+      "Tue_06-09",
+      "Wed_15-18",
+      "Wed_09-12",
+      "Thu_12-15"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.76,
+    "personality_improviser": 0.38
+  },
+  {
+    "id": 38,
+    "name": "Parker Lopez",
+    "instrument": "Vocals",
+    "skill_level": 2,
+    "genres": [
+      "Classical",
+      "Rock",
+      "Electronic",
+      "Blues"
+    ],
+    "availability": [
+      "Sat_06-09",
+      "Sun_21-00",
+      "Mon_06-09"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.2,
+    "personality_improviser": 0.02
+  },
+  {
+    "id": 39,
+    "name": "Morgan Garcia",
+    "instrument": "Guitar",
+    "skill_level": 3,
+    "genres": [
+      "Indie",
+      "Pop",
+      "Classical"
+    ],
+    "availability": [
+      "Sun_12-15",
+      "Tue_18-21",
+      "Fri_21-00",
+      "Sat_06-09"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.96,
+    "personality_improviser": 0.11
+  },
+  {
+    "id": 40,
+    "name": "Alex Adams",
+    "instrument": "Vocals",
+    "skill_level": 6,
+    "genres": [
+      "R&B",
+      "Indie",
+      "Pop"
+    ],
+    "availability": [
+      "Fri_21-00",
+      "Sun_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.1,
+    "personality_improviser": 0.77
+  },
+  {
+    "id": 41,
+    "name": "Phoenix Martin",
+    "instrument": "Keys",
+    "skill_level": 7,
+    "genres": [
+      "Indie",
+      "Rock"
+    ],
+    "availability": [
+      "Fri_15-18",
+      "Sat_12-15",
+      "Mon_18-21"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.85,
+    "personality_improviser": 0.82
+  },
+  {
+    "id": 42,
+    "name": "Taylor Wilson",
+    "instrument": "Violin",
+    "skill_level": 6,
+    "genres": [
+      "Classical",
+      "Blues",
+      "R&B"
+    ],
+    "availability": [
+      "Sat_18-21",
+      "Sat_12-15",
+      "Fri_18-21"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.46,
+    "personality_improviser": 0.83
+  },
+  {
+    "id": 43,
+    "name": "Emerson Williams",
+    "instrument": "Vocals",
+    "skill_level": 5,
+    "genres": [
+      "Jazz",
+      "Metal"
+    ],
+    "availability": [
+      "Tue_15-18",
+      "Fri_18-21",
+      "Sat_15-18",
+      "Wed_06-09",
+      "Thu_12-15"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.49,
+    "personality_improviser": 0.35
+  },
+  {
+    "id": 44,
+    "name": "Quinn Brown",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "Metal",
+      "Electronic",
+      "Rock"
+    ],
+    "availability": [
+      "Tue_06-09",
+      "Tue_21-00",
+      "Thu_15-18",
+      "Fri_09-12",
+      "Sat_15-18",
+      "Sat_21-00"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.45,
+    "personality_improviser": 0.02
+  },
+  {
+    "id": 45,
+    "name": "Sage Garcia",
+    "instrument": "Vocals",
+    "skill_level": 3,
+    "genres": [
+      "Indie",
+      "Folk"
+    ],
+    "availability": [
+      "Fri_18-21",
+      "Wed_15-18",
+      "Sat_18-21",
+      "Wed_12-15",
+      "Sat_15-18"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.31,
+    "personality_improviser": 0.23
+  },
+  {
+    "id": 46,
+    "name": "Jules Johnson",
+    "instrument": "Vocals",
+    "skill_level": 4,
+    "genres": [
+      "Blues",
+      "Pop",
+      "Electronic"
+    ],
+    "availability": [
+      "Wed_21-00",
+      "Fri_18-21",
+      "Fri_12-15",
+      "Mon_09-12",
+      "Wed_09-12"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.18,
+    "personality_improviser": 0.01
+  },
+  {
+    "id": 47,
+    "name": "Blake Blake",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "Electronic",
+      "Metal",
+      "Blues",
+      "Folk"
+    ],
+    "availability": [
+      "Mon_06-09",
+      "Fri_12-15",
+      "Thu_15-18",
+      "Thu_12-15",
+      "Tue_06-09"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.94,
+    "personality_improviser": 0.48
+  },
+  {
+    "id": 48,
+    "name": "Lennon Lee",
+    "instrument": "Vocals",
+    "skill_level": 8,
+    "genres": [
+      "Rock",
+      "Blues"
+    ],
+    "availability": [
+      "Sun_18-21",
+      "Wed_06-09",
+      "Tue_06-09"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.76,
+    "personality_improviser": 0.61
+  },
+  {
+    "id": 49,
+    "name": "Hayden White",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Classical",
+      "Indie",
+      "Metal"
+    ],
+    "availability": [
+      "Thu_12-15",
+      "Fri_18-21",
+      "Mon_18-21",
+      "Sat_06-09",
+      "Sun_09-12",
+      "Sat_09-12"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.66,
+    "personality_improviser": 0.16
+  },
+  {
+    "id": 50,
+    "name": "Casey Thomas",
+    "instrument": "Guitar",
+    "skill_level": 2,
+    "genres": [
+      "Classical",
+      "Indie"
+    ],
+    "availability": [
+      "Mon_09-12",
+      "Wed_21-00",
+      "Sun_15-18"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.69,
+    "personality_improviser": 0.92
+  },
+  {
+    "id": 51,
+    "name": "Hayden Wright",
+    "instrument": "Keys",
+    "skill_level": 6,
+    "genres": [
+      "Pop",
+      "R&B",
+      "Jazz"
+    ],
+    "availability": [
+      "Tue_21-00",
+      "Tue_12-15",
+      "Sun_09-12",
+      "Mon_06-09",
+      "Fri_21-00"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.92,
+    "personality_improviser": 0.44
+  },
+  {
+    "id": 52,
+    "name": "Finley Thompson",
+    "instrument": "Vocals",
+    "skill_level": 5,
+    "genres": [
+      "Metal",
+      "Electronic",
+      "Classical"
+    ],
+    "availability": [
+      "Mon_18-21",
+      "Mon_15-18",
+      "Sat_12-15",
+      "Fri_12-15",
+      "Mon_06-09"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.96,
+    "personality_improviser": 0.84
+  },
+  {
+    "id": 53,
+    "name": "Emerson Jackson",
+    "instrument": "Violin",
+    "skill_level": 4,
+    "genres": [
+      "Metal",
+      "Rock",
+      "Blues",
+      "Pop"
+    ],
+    "availability": [
+      "Sat_15-18",
+      "Wed_09-12",
+      "Fri_15-18",
+      "Mon_15-18",
+      "Wed_15-18"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.32,
+    "personality_improviser": 0.1
+  },
+  {
+    "id": 54,
+    "name": "Casey Brown",
+    "instrument": "Vocals",
+    "skill_level": 7,
+    "genres": [
+      "R&B",
+      "Electronic",
+      "Rock"
+    ],
+    "availability": [
+      "Mon_12-15",
+      "Wed_12-15",
+      "Mon_15-18",
+      "Sun_18-21",
+      "Sun_06-09"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.46,
+    "personality_improviser": 0.05
+  },
+  {
+    "id": 55,
+    "name": "Charlie Davis",
+    "instrument": "Keys",
+    "skill_level": 8,
+    "genres": [
+      "Classical",
+      "Rock",
+      "Pop"
+    ],
+    "availability": [
+      "Fri_09-12",
+      "Wed_15-18",
+      "Sat_15-18",
+      "Mon_06-09"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.8,
+    "personality_improviser": 0.71
+  },
+  {
+    "id": 56,
+    "name": "Sage Thomas",
+    "instrument": "Guitar",
+    "skill_level": 7,
+    "genres": [
+      "Pop",
+      "Jazz",
+      "Classical"
+    ],
+    "availability": [
+      "Sat_09-12",
+      "Thu_21-00"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.51,
+    "personality_improviser": 0.27
+  },
+  {
+    "id": 57,
+    "name": "Lennon Taylor",
+    "instrument": "Other",
+    "skill_level": 4,
+    "genres": [
+      "Electronic",
+      "Blues"
+    ],
+    "availability": [
+      "Tue_18-21",
+      "Fri_21-00",
+      "Tue_06-09",
+      "Wed_15-18",
+      "Wed_18-21"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.82,
+    "personality_improviser": 0.28
+  },
+  {
+    "id": 58,
+    "name": "Sage Lopez",
+    "instrument": "Keys",
+    "skill_level": 5,
+    "genres": [
+      "Classical",
+      "Blues",
+      "Indie",
+      "Metal"
+    ],
+    "availability": [
+      "Wed_12-15",
+      "Fri_18-21",
+      "Thu_15-18",
+      "Wed_09-12",
+      "Sat_09-12"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.38,
+    "personality_improviser": 0.86
+  },
+  {
+    "id": 59,
+    "name": "Dakota Rivera",
+    "instrument": "Vocals",
+    "skill_level": 6,
+    "genres": [
+      "R&B",
+      "Indie",
+      "Blues"
+    ],
+    "availability": [
+      "Mon_09-12",
+      "Fri_18-21",
+      "Wed_06-09",
+      "Sun_15-18",
+      "Mon_18-21"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.02,
+    "personality_improviser": 0.14
+  },
+  {
+    "id": 60,
+    "name": "Phoenix Harris",
+    "instrument": "Violin",
+    "skill_level": 7,
+    "genres": [
+      "Metal",
+      "Folk"
+    ],
+    "availability": [
+      "Sat_15-18",
+      "Sat_06-09",
+      "Sun_12-15",
+      "Sun_21-00",
+      "Sun_18-21",
+      "Thu_12-15"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.87,
+    "personality_improviser": 0.04
+  },
+  {
+    "id": 61,
+    "name": "Jordan Garcia",
+    "instrument": "Keys",
+    "skill_level": 5,
+    "genres": [
+      "Pop",
+      "Jazz",
+      "R&B",
+      "Rock"
+    ],
+    "availability": [
+      "Thu_09-12",
+      "Sat_12-15"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.05,
+    "personality_improviser": 0.8
+  },
+  {
+    "id": 62,
+    "name": "Sage Davis",
+    "instrument": "Vocals",
+    "skill_level": 5,
+    "genres": [
+      "Electronic",
+      "R&B"
+    ],
+    "availability": [
+      "Sat_09-12",
+      "Tue_09-12",
+      "Mon_18-21",
+      "Sun_15-18",
+      "Fri_21-00",
+      "Tue_15-18"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.14,
+    "personality_improviser": 0.46
+  },
+  {
+    "id": 63,
+    "name": "Quinn Moore",
+    "instrument": "Guitar",
+    "skill_level": 3,
+    "genres": [
+      "Classical",
+      "Metal"
+    ],
+    "availability": [
+      "Tue_06-09",
+      "Thu_12-15",
+      "Fri_12-15",
+      "Sat_15-18",
+      "Sat_12-15"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 1.0,
+    "personality_improviser": 0.85
+  },
+  {
+    "id": 64,
+    "name": "Taylor Garcia",
+    "instrument": "Vocals",
+    "skill_level": 3,
+    "genres": [
+      "Metal",
+      "Indie"
+    ],
+    "availability": [
+      "Sun_21-00",
+      "Thu_12-15"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.57,
+    "personality_improviser": 0.69
+  },
+  {
+    "id": 65,
+    "name": "Jules Rivera",
+    "instrument": "Trumpet",
+    "skill_level": 7,
+    "genres": [
+      "Metal",
+      "Pop",
+      "Folk"
+    ],
+    "availability": [
+      "Sat_09-12",
+      "Fri_12-15",
+      "Sat_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.63,
+    "personality_improviser": 0.9
+  },
+  {
+    "id": 66,
+    "name": "Cameron Rivera",
+    "instrument": "Vocals",
+    "skill_level": 8,
+    "genres": [
+      "Indie",
+      "Folk",
+      "Blues"
+    ],
+    "availability": [
+      "Wed_12-15",
+      "Sat_15-18"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.2,
+    "personality_improviser": 0.79
+  },
+  {
+    "id": 67,
+    "name": "Ashton Davis",
+    "instrument": "Keys",
+    "skill_level": 5,
+    "genres": [
+      "Blues",
+      "Metal",
+      "Classical",
+      "R&B"
+    ],
+    "availability": [
+      "Sat_12-15",
+      "Sun_06-09",
+      "Thu_06-09",
+      "Tue_09-12"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.97,
+    "personality_improviser": 0.8
+  },
+  {
+    "id": 68,
+    "name": "River Lee",
+    "instrument": "Bass",
+    "skill_level": 8,
+    "genres": [
+      "Electronic",
+      "Jazz"
+    ],
+    "availability": [
+      "Wed_21-00",
+      "Sat_21-00",
+      "Wed_18-21",
+      "Thu_21-00",
+      "Wed_06-09"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.47,
+    "personality_improviser": 0.62
+  },
+  {
+    "id": 69,
+    "name": "Blake Brown",
+    "instrument": "Trumpet",
+    "skill_level": 6,
+    "genres": [
+      "Jazz",
+      "Classical"
+    ],
+    "availability": [
+      "Sat_15-18",
+      "Mon_09-12",
+      "Mon_06-09",
+      "Wed_15-18"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.1,
+    "personality_improviser": 0.89
+  },
+  {
+    "id": 70,
+    "name": "Morgan Rodriguez",
+    "instrument": "Vocals",
+    "skill_level": 4,
+    "genres": [
+      "Electronic",
+      "R&B",
+      "Blues"
+    ],
+    "availability": [
+      "Sat_06-09",
+      "Sun_15-18",
+      "Fri_15-18",
+      "Wed_06-09",
+      "Sat_12-15"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.44,
+    "personality_improviser": 0.95
+  },
+  {
+    "id": 71,
+    "name": "Phoenix Davis",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Electronic",
+      "Folk",
+      "Rock"
+    ],
+    "availability": [
+      "Wed_09-12",
+      "Mon_15-18",
+      "Mon_21-00",
+      "Tue_21-00",
+      "Sat_18-21"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.05,
+    "personality_improviser": 0.33
+  },
+  {
+    "id": 72,
+    "name": "Morgan Wright",
+    "instrument": "Keys",
+    "skill_level": 9,
+    "genres": [
+      "Electronic",
+      "Pop"
+    ],
+    "availability": [
+      "Tue_09-12",
+      "Wed_09-12",
+      "Sun_18-21",
+      "Mon_12-15",
+      "Sun_09-12",
+      "Tue_18-21"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.8,
+    "personality_improviser": 0.11
+  },
+  {
+    "id": 73,
+    "name": "Phoenix Chen",
+    "instrument": "Guitar",
+    "skill_level": 5,
+    "genres": [
+      "Pop",
+      "Folk"
+    ],
+    "availability": [
+      "Tue_12-15",
+      "Mon_09-12"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.53,
+    "personality_improviser": 0.75
+  },
+  {
+    "id": 74,
+    "name": "Reese Moore",
+    "instrument": "Bass",
+    "skill_level": 9,
+    "genres": [
+      "Jazz",
+      "Classical",
+      "Pop"
+    ],
+    "availability": [
+      "Mon_21-00",
+      "Sun_21-00",
+      "Fri_12-15",
+      "Thu_21-00",
+      "Mon_06-09",
+      "Thu_15-18"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.69,
+    "personality_improviser": 0.49
+  },
+  {
+    "id": 75,
+    "name": "Marlowe Moore",
+    "instrument": "Guitar",
+    "skill_level": 1,
+    "genres": [
+      "Indie",
+      "Blues"
+    ],
+    "availability": [
+      "Tue_12-15",
+      "Fri_21-00"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.55,
+    "personality_improviser": 0.33
+  },
+  {
+    "id": 76,
+    "name": "Drew Anderson",
+    "instrument": "Guitar",
+    "skill_level": 7,
+    "genres": [
+      "R&B",
+      "Jazz",
+      "Electronic"
+    ],
+    "availability": [
+      "Sat_09-12",
+      "Thu_15-18",
+      "Tue_15-18",
+      "Wed_15-18",
+      "Sat_06-09"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.43,
+    "personality_improviser": 0.67
+  },
+  {
+    "id": 77,
+    "name": "River Blake",
+    "instrument": "Drums",
+    "skill_level": 6,
+    "genres": [
+      "Jazz",
+      "Indie",
+      "Electronic"
+    ],
+    "availability": [
+      "Mon_21-00",
+      "Sat_12-15",
+      "Sun_09-12",
+      "Fri_06-09",
+      "Fri_18-21"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.33,
+    "personality_improviser": 0.12
+  },
+  {
+    "id": 78,
+    "name": "River Hill",
+    "instrument": "Drums",
+    "skill_level": 5,
+    "genres": [
+      "Rock",
+      "Metal",
+      "Electronic"
+    ],
+    "availability": [
+      "Mon_18-21",
+      "Fri_09-12",
+      "Tue_21-00",
+      "Thu_09-12"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.35,
+    "personality_improviser": 0.56
+  },
+  {
+    "id": 79,
+    "name": "Taylor King",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "R&B",
+      "Electronic"
+    ],
+    "availability": [
+      "Fri_21-00",
+      "Sat_18-21",
+      "Mon_18-21",
+      "Sat_21-00",
+      "Wed_06-09",
+      "Tue_12-15"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.92,
+    "personality_improviser": 0.35
+  },
+  {
+    "id": 80,
+    "name": "Casey Hill",
+    "instrument": "Guitar",
+    "skill_level": 2,
+    "genres": [
+      "Jazz",
+      "Blues",
+      "Rock"
+    ],
+    "availability": [
+      "Sat_18-21",
+      "Tue_15-18"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.45,
+    "personality_improviser": 0.16
+  },
+  {
+    "id": 81,
+    "name": "Sage Young",
+    "instrument": "Vocals",
+    "skill_level": 5,
+    "genres": [
+      "Indie",
+      "Jazz",
+      "Rock",
+      "Electronic"
+    ],
+    "availability": [
+      "Sun_18-21",
+      "Mon_21-00",
+      "Mon_12-15"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.66,
+    "personality_improviser": 0.49
+  },
+  {
+    "id": 82,
+    "name": "Finley Wilson",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Jazz",
+      "Folk",
+      "R&B"
+    ],
+    "availability": [
+      "Wed_21-00",
+      "Sat_18-21"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.53,
+    "personality_improviser": 0.31
+  },
+  {
+    "id": 83,
+    "name": "Avery Rodriguez",
+    "instrument": "Other",
+    "skill_level": 8,
+    "genres": [
+      "Pop",
+      "Metal"
+    ],
+    "availability": [
+      "Sun_09-12",
+      "Sun_12-15",
+      "Wed_12-15"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.01,
+    "personality_improviser": 0.75
+  },
+  {
+    "id": 84,
+    "name": "Casey Blake",
+    "instrument": "Vocals",
+    "skill_level": 4,
+    "genres": [
+      "Electronic",
+      "Indie",
+      "Folk"
+    ],
+    "availability": [
+      "Thu_21-00",
+      "Mon_15-18"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.46,
+    "personality_improviser": 0.08
+  },
+  {
+    "id": 85,
+    "name": "Skylar Jackson",
+    "instrument": "Vocals",
+    "skill_level": 4,
+    "genres": [
+      "R&B",
+      "Metal",
+      "Jazz"
+    ],
+    "availability": [
+      "Mon_12-15",
+      "Tue_18-21",
+      "Thu_21-00",
+      "Wed_06-09",
+      "Thu_06-09"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.44,
+    "personality_improviser": 0.4
+  },
+  {
+    "id": 86,
+    "name": "Jordan Rodriguez",
+    "instrument": "Saxophone",
+    "skill_level": 4,
+    "genres": [
+      "Pop",
+      "Folk",
+      "Blues"
+    ],
+    "availability": [
+      "Fri_21-00",
+      "Mon_18-21"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.19,
+    "personality_improviser": 0.78
+  },
+  {
+    "id": 87,
+    "name": "River Young",
+    "instrument": "Violin",
+    "skill_level": 7,
+    "genres": [
+      "Blues",
+      "Pop",
+      "Jazz"
+    ],
+    "availability": [
+      "Wed_09-12",
+      "Tue_18-21",
+      "Tue_21-00"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.18,
+    "personality_improviser": 0.77
+  },
+  {
+    "id": 88,
+    "name": "Reese Moore",
+    "instrument": "Bass",
+    "skill_level": 6,
+    "genres": [
+      "Classical",
+      "Folk",
+      "Electronic"
+    ],
+    "availability": [
+      "Thu_06-09",
+      "Thu_15-18",
+      "Sat_12-15"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.59,
+    "personality_improviser": 0.35
+  },
+  {
+    "id": 89,
+    "name": "Jordan Martinez",
+    "instrument": "Vocals",
+    "skill_level": 4,
+    "genres": [
+      "Folk",
+      "Metal"
+    ],
+    "availability": [
+      "Sat_06-09",
+      "Fri_18-21"
+    ],
+    "location": "Allston",
+    "personality_leader": 0.38,
+    "personality_improviser": 0.58
+  },
+  {
+    "id": 90,
+    "name": "Hayden Young",
+    "instrument": "Saxophone",
+    "skill_level": 7,
+    "genres": [
+      "Indie",
+      "Pop",
+      "Folk"
+    ],
+    "availability": [
+      "Thu_18-21",
+      "Tue_06-09",
+      "Thu_06-09",
+      "Sun_12-15",
+      "Sat_06-09",
+      "Fri_21-00"
+    ],
+    "location": "Cambridge",
+    "personality_leader": 0.04,
+    "personality_improviser": 0.71
+  },
+  {
+    "id": 91,
+    "name": "Finley Anderson",
+    "instrument": "Keys",
+    "skill_level": 6,
+    "genres": [
+      "Folk",
+      "Metal"
+    ],
+    "availability": [
+      "Thu_12-15",
+      "Sat_18-21",
+      "Mon_21-00",
+      "Sat_12-15",
+      "Mon_12-15"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.56,
+    "personality_improviser": 0.39
+  },
+  {
+    "id": 92,
+    "name": "Quinn Young",
+    "instrument": "Saxophone",
+    "skill_level": 7,
+    "genres": [
+      "Indie",
+      "Blues",
+      "Folk",
+      "Rock"
+    ],
+    "availability": [
+      "Sat_09-12",
+      "Wed_12-15",
+      "Sat_21-00",
+      "Sat_15-18",
+      "Tue_18-21",
+      "Sat_06-09"
+    ],
+    "location": "Somerville",
+    "personality_leader": 0.56,
+    "personality_improviser": 0.64
+  },
+  {
+    "id": 93,
+    "name": "Skylar Lopez",
+    "instrument": "Guitar",
+    "skill_level": 4,
+    "genres": [
+      "Electronic",
+      "Jazz",
+      "R&B"
+    ],
+    "availability": [
+      "Wed_06-09",
+      "Wed_12-15",
+      "Tue_09-12",
+      "Wed_15-18"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.3,
+    "personality_improviser": 0.79
+  },
+  {
+    "id": 94,
+    "name": "Charlie King",
+    "instrument": "Keys",
+    "skill_level": 5,
+    "genres": [
+      "Electronic",
+      "Rock",
+      "Folk"
+    ],
+    "availability": [
+      "Tue_18-21",
+      "Thu_09-12",
+      "Tue_09-12",
+      "Sun_21-00",
+      "Sun_18-21",
+      "Sun_09-12"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.04,
+    "personality_improviser": 0.36
+  },
+  {
+    "id": 95,
+    "name": "Jules Garcia",
+    "instrument": "Violin",
+    "skill_level": 5,
+    "genres": [
+      "Classical",
+      "Pop",
+      "Electronic"
+    ],
+    "availability": [
+      "Sun_15-18",
+      "Sun_09-12",
+      "Wed_21-00",
+      "Fri_15-18"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.77,
+    "personality_improviser": 0.78
+  },
+  {
+    "id": 96,
+    "name": "Charlie Anderson",
+    "instrument": "Vocals",
+    "skill_level": 3,
+    "genres": [
+      "Pop",
+      "Blues"
+    ],
+    "availability": [
+      "Mon_21-00",
+      "Thu_12-15",
+      "Fri_06-09",
+      "Sat_18-21"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.29,
+    "personality_improviser": 0.76
+  },
+  {
+    "id": 97,
+    "name": "Quinn Moore",
+    "instrument": "Trumpet",
+    "skill_level": 6,
+    "genres": [
+      "R&B",
+      "Jazz"
+    ],
+    "availability": [
+      "Sun_15-18",
+      "Wed_06-09",
+      "Thu_06-09"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.5,
+    "personality_improviser": 0.24
+  },
+  {
+    "id": 98,
+    "name": "Jordan Davis",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Jazz",
+      "Folk"
+    ],
+    "availability": [
+      "Tue_06-09",
+      "Wed_15-18",
+      "Sat_09-12"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.45,
+    "personality_improviser": 0.01
+  },
+  {
+    "id": 99,
+    "name": "Jordan Chen",
+    "instrument": "Guitar",
+    "skill_level": 6,
+    "genres": [
+      "Electronic",
+      "Indie",
+      "R&B",
+      "Rock"
+    ],
+    "availability": [
+      "Tue_12-15",
+      "Mon_06-09",
+      "Tue_15-18",
+      "Sat_18-21"
+    ],
+    "location": "Brookline",
+    "personality_leader": 0.06,
+    "personality_improviser": 0.84
+  },
+  {
+    "id": 100,
+    "name": "Reese White",
+    "instrument": "Keys",
+    "skill_level": 5,
+    "genres": [
+      "Indie",
+      "Pop",
+      "Blues"
+    ],
+    "availability": [
+      "Thu_06-09",
+      "Fri_12-15",
+      "Tue_18-21",
+      "Thu_09-12"
+    ],
+    "location": "Boston",
+    "personality_leader": 0.52,
+    "personality_improviser": 0.36
+  }
+]
