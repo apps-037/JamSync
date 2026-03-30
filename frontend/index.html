@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamSync - Find Your Perfect Jam Session</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .genre-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .genre-checkbox:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .genre-checkbox input {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .availability-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .day-slot {
+            padding: 8px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .day-slot:hover {
+            border-color: #667eea;
+        }
+        
+        .day-slot.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .results {
+            display: none;
+        }
+        
+        .session-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .session-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .quality-badge {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .musician-list {
+            margin-top: 15px;
+        }
+        
+        .musician-item {
+            padding: 10px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .back-button {
+            background: #6c757d;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Form View -->
+        <div id="formView">
+            <h1>🎵 JamSync</h1>
+            <p class="subtitle">Find your perfect jam session using AI</p>
+            
+            <form id="jamForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" required placeholder="e.g., Alex Rivera">
+                </div>
+                
+                <div class="form-group">
+                    <label for="instrument">Instrument</label>
+                    <select id="instrument" required>
+                        <option value="">Select your instrument</option>
+                        <option value="Guitar">Guitar</option>
+                        <option value="Bass">Bass</option>
+                        <option value="Drums">Drums</option>
+                        <option value="Keys">Keys/Piano</option>
+                        <option value="Vocals">Vocals</option>
+                        <option value="Saxophone">Saxophone</option>
+                        <option value="Trumpet">Trumpet</option>
+                        <option value="Violin">Violin</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skill">Skill Level (1-10)</label>
+                    <input type="range" id="skill" min="1" max="10" value="5" oninput="document.getElementById('skillValue').textContent = this.value">
+                    <div style="text-align: center; margin-top: 5px; font-size: 24px; font-weight: bold; color: #667eea;">
+                        <span id="skillValue">5</span>/10
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Genres (Select 2-4)</label>
+                    <div class="genre-grid">
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Rock"> Rock
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Jazz"> Jazz
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Blues"> Blues
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Pop"> Pop
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Metal"> Metal
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Folk"> Folk
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="R&B"> R&B
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Classical"> Classical
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Electronic"> Electronic
+                        </label>
+                        <label class="genre-checkbox">
+                            <input type="checkbox" name="genre" value="Indie"> Indie
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Availability (Click times you're free)</label>
+                    <div style="margin-bottom: 10px; font-size: 14px; color: #666;">
+                        Monday - Sunday, select time slots:
+                    </div>
+                    <div id="availabilityGrid"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <select id="location" required>
+                        <option value="">Select location</option>
+                        <option value="Boston">Boston</option>
+                        <option value="Cambridge">Cambridge</option>
+                        <option value="Somerville">Somerville</option>
+                        <option value="Brookline">Brookline</option>
+                        <option value="Allston">Allston</option>
+                    </select>
+                </div>
+                
+                <button type="submit" id="submitBtn">🎸 Find My Jam Sessions</button>
+            </form>
+        </div>
+        
+        <!-- Loading View -->
+        <div id="loadingView" class="loading">
+            <div class="spinner"></div>
+            <h2>🔍 Finding your perfect matches...</h2>
+            <p>Our AI is analyzing 100+ musicians to find your ideal jam sessions</p>
+        </div>
+        
+        <!-- Results View -->
+        <div id="resultsView" class="results">
+            <button class="back-button" onclick="resetForm()">← Back to Form</button>
+            <h1>🎉 Your Perfect Matches!</h1>
+            <p class="subtitle" id="resultsSubtitle"></p>
+            <div id="sessionsList"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Create availability grid
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const times = ['18-21', '19-22', '20-23'];  // Simplified for demo
+        const timeLabels = ['6-9pm', '7-10pm', '8-11pm'];
+        
+        const grid = document.getElementById('availabilityGrid');
+        
+        // Header row
+        let headerRow = '<div style="display: grid; grid-template-columns: 80px repeat(7, 1fr); gap: 5px; margin-bottom: 5px;">';
+        headerRow += '<div></div>';
+        days.forEach(day => {
+            headerRow += `<div style="text-align: center; font-weight: 600; font-size: 12px;">${day}</div>`;
+        });
+        headerRow += '</div>';
+        grid.innerHTML = headerRow;
+        
+        // Time rows
+        times.forEach((time, timeIdx) => {
+            let row = '<div style="display: grid; grid-template-columns: 80px repeat(7, 1fr); gap: 5px; margin-bottom: 5px;">';
+            row += `<div style="font-size: 12px; padding: 8px 0; font-weight: 600;">${timeLabels[timeIdx]}</div>`;
+            
+            days.forEach(day => {
+                const slotId = `${day}_${time}`;
+                row += `<div class="day-slot" data-slot="${slotId}" onclick="toggleSlot('${slotId}')">&nbsp;</div>`;
+            });
+            
+            row += '</div>';
+            grid.innerHTML += row;
+        });
+        
+        // Selected availability slots
+        let selectedSlots = new Set();
+        
+        function toggleSlot(slotId) {
+            const element = document.querySelector(`[data-slot="${slotId}"]`);
+            if (selectedSlots.has(slotId)) {
+                selectedSlots.delete(slotId);
+                element.classList.remove('selected');
+            } else {
+                selectedSlots.add(slotId);
+                element.classList.add('selected');
+            }
+        }
+        
+        // Form submission
+        document.getElementById('jamForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get genres
+            const genreCheckboxes = document.querySelectorAll('input[name="genre"]:checked');
+            const genres = Array.from(genreCheckboxes).map(cb => cb.value);
+            
+            if (genres.length < 2) {
+                alert('Please select at least 2 genres');
+                return;
+            }
+            
+            if (selectedSlots.size === 0) {
+                alert('Please select at least one availability slot');
+                return;
+            }
+            
+            // Prepare data
+            const formData = {
+                name: document.getElementById('name').value,
+                instrument: document.getElementById('instrument').value,
+                skill_level: parseInt(document.getElementById('skill').value),
+                genres: genres,
+                availability: Array.from(selectedSlots),
+                location: document.getElementById('location').value,
+                personality_leader: 0.5,  // Default
+                personality_improviser: 0.5  // Default
+            };
+            
+            // Show loading
+            document.getElementById('formView').style.display = 'none';
+            document.getElementById('loadingView').style.display = 'block';
+            
+            try {
+                // Call API
+                const response = await fetch('http://localhost:5000/api/find-sessions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayResults(data.recommendations, formData.name);
+                } else {
+                    alert('Error: ' + data.error);
+                    resetForm();
+                }
+            } catch (error) {
+                alert('Could not connect to API. Make sure backend is running!');
+                resetForm();
+            }
+        });
+        
+        function displayResults(recommendations, userName) {
+            document.getElementById('loadingView').style.display = 'none';
+            document.getElementById('resultsView').style.display = 'block';
+            
+            const subtitle = document.getElementById('resultsSubtitle');
+            subtitle.textContent = `Hey ${userName}! We found ${recommendations.length} perfect jam sessions for you.`;
+            
+            const sessionsList = document.getElementById('sessionsList');
+            sessionsList.innerHTML = '';
+            
+            if (recommendations.length === 0) {
+                sessionsList.innerHTML = '<p>No sessions found matching your criteria. Try adjusting your availability or genres!</p>';
+                return;
+            }
+            
+            recommendations.forEach((session, index) => {
+                const card = document.createElement('div');
+                card.className = 'session-card';
+                
+                const rank = index === 0 ? '⭐ BEST MATCH' : `Match #${index + 1}`;
+                
+                card.innerHTML = `
+                    <div class="session-header">
+                        <div>
+                            <div style="font-size: 12px; color: #667eea; font-weight: 600;">${rank}</div>
+                            <h3 style="margin: 5px 0;">Session ${session.id}</h3>
+                            <div style="color: #666; font-size: 14px;">${formatTimeSlot(session.time_slot)} • ${session.location}</div>
+                        </div>
+                        <div class="quality-badge">${session.quality_score.toFixed(1)}% Match</div>
+                    </div>
+                    
+                    <div class="musician-list">
+                        <strong>Your Bandmates:</strong>
+                        ${session.musicians.map(m => `
+                            <div class="musician-item">
+                                <strong>${m.name}</strong> - ${m.instrument}, Skill ${m.skill_level}
+                                <div style="font-size: 12px; color: #666;">${m.genres.join(', ')}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                sessionsList.appendChild(card);
+            });
+        }
+        
+        function formatTimeSlot(slot) {
+            const [day, time] = slot.split('_');
+            const [start, end] = time.split('-');
+            
+            const formatHour = (h) => {
+                const hour = parseInt(h);
+                if (hour === 0) return '12am';
+                if (hour < 12) return `${hour}am`;
+                if (hour === 12) return '12pm';
+                return `${hour - 12}pm`;
+            };
+            
+            return `${day} ${formatHour(start)}-${formatHour(end)}`;
+        }
+        
+        function resetForm() {
+            document.getElementById('formView').style.display = 'block';
+            document.getElementById('loadingView').style.display = 'none';
+            document.getElementById('resultsView').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
