@@ -1,105 +1,110 @@
-# tests/test_csp.py
+# test_csp.py
+# unit tests for constraint checking
+
 import sys
 import os
-
-# Add parent directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# test_csp.py
 from backend.csp_solver import BasicCSPSolver, Musician, ConstraintChecker
 
-def test_group_size_constraint():
-    """Test that group size constraint works"""
+def test_group_size():
     checker = ConstraintChecker()
     
-    # Too few (2 musicians)
-    musicians = [
-        Musician(1, "Test1", "Guitar", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5),
-        Musician(2, "Test2", "Drums", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
-    ]
-    assert not checker.check_group_size(musicians), "Should reject 2 musicians"
+    # test with 2 musicians - should fail
+    m1 = Musician(1, "Test1", "Guitar", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    m2 = Musician(2, "Test2", "Drums", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    musicians = [m1, m2]
     
-    # Valid (3 musicians)
-    musicians.append(Musician(3, "Test3", "Bass", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5))
-    assert checker.check_group_size(musicians), "Should accept 3 musicians"
+    result = checker.check_group_size(musicians)
+    assert not result, "2 musicians should fail"
     
-    # Too many (7 musicians)
+    # add one more - should pass
+    m3 = Musician(3, "Test3", "Bass", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    musicians.append(m3)
+    
+    result = checker.check_group_size(musicians)
+    assert result, "3 musicians should pass"
+    
+    # add too many - should fail
     for i in range(4, 8):
-        musicians.append(Musician(i, f"Test{i}", "Guitar", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5))
-    assert not checker.check_group_size(musicians), "Should reject 7 musicians"
+        m = Musician(i, f"Test{i}", "Guitar", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+        musicians.append(m)
     
-    print("✓ Group size constraint test passed")
+    result = checker.check_group_size(musicians)
+    assert not result, "7 musicians should fail"
+    
+    print("Group size test passed")
 
-def test_rhythm_section_constraint():
-    """Test that rhythm section constraint works"""
+def test_rhythm_section():
     checker = ConstraintChecker()
     
-    # No rhythm section
-    musicians = [
-        Musician(1, "Test1", "Guitar", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5),
-        Musician(2, "Test2", "Vocals", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5),
-        Musician(3, "Test3", "Keys", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
-    ]
-    assert not checker.check_rhythm_section(musicians), "Should reject session without rhythm"
+    # no drums or bass - should fail
+    m1 = Musician(1, "Test1", "Guitar", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    m2 = Musician(2, "Test2", "Vocals", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    m3 = Musician(3, "Test3", "Keys", 5, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    musicians = [m1, m2, m3]
     
-    # Has drums
-    musicians[1].instrument = "Drums"
-    assert checker.check_rhythm_section(musicians), "Should accept session with drums"
+    result = checker.check_rhythm_section(musicians)
+    assert not result, "no rhythm should fail"
     
-    # Has bass
-    musicians[1].instrument = "Bass"
-    assert checker.check_rhythm_section(musicians), "Should accept session with bass"
+    # change to drums - should pass
+    m2.instrument = "Drums"
+    result = checker.check_rhythm_section(musicians)
+    assert result, "drums should pass"
     
-    print("✓ Rhythm section constraint test passed")
+    # change to bass - should pass
+    m2.instrument = "Bass"
+    result = checker.check_rhythm_section(musicians)
+    assert result, "bass should pass"
+    
+    print("Rhythm section test passed")
 
-def test_skill_compatibility():
-    """Test skill compatibility scoring"""
+def test_skill_scoring():
     checker = ConstraintChecker()
     
-    # Perfect match (all skill 7)
-    musicians = [
-        Musician(1, "Test1", "Guitar", 7, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5),
-        Musician(2, "Test2", "Drums", 7, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5),
-        Musician(3, "Test3", "Bass", 7, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
-    ]
-    score = checker.calculate_skill_compatibility(musicians)
-    assert score == 100.0, f"Perfect skill match should be 100%, got {score}"
+    # all same skill
+    m1 = Musician(1, "Test1", "Guitar", 7, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    m2 = Musician(2, "Test2", "Drums", 7, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    m3 = Musician(3, "Test3", "Bass", 7, ["Rock"], ["Mon_18-21"], "Boston", 0.5, 0.5)
+    musicians = [m1, m2, m3]
     
-    # Good match (skills 6, 7, 8)
-    musicians[0].skill_level = 6
-    musicians[2].skill_level = 8
     score = checker.calculate_skill_compatibility(musicians)
-    assert score == 100.0, f"2-point range should be 100%, got {score}"
+    assert score == 100.0, f"same skill should be 100, got {score}"
     
-    # Poor match (skills 3, 7, 9)
-    musicians[0].skill_level = 3
-    musicians[2].skill_level = 9
+    # 2 point range
+    m1.skill_level = 6
+    m3.skill_level = 8
     score = checker.calculate_skill_compatibility(musicians)
-    assert score < 50, f"Large skill gap should score low, got {score}"
+    assert score == 100.0, f"2 point range should be 100, got {score}"
     
-    print("✓ Skill compatibility test passed")
+    # big gap
+    m1.skill_level = 3
+    m3.skill_level = 9
+    score = checker.calculate_skill_compatibility(musicians)
+    assert score < 50, f"big gap should score low, got {score}"
+    
+    print("Skill compatibility test passed")
 
-def test_solver_basic():
-    """Test that solver creates valid sessions"""
+def test_solver():
     solver = BasicCSPSolver()
     musicians = solver.load_musicians('data/musicians_dataset.json')
     
     sessions = solver.solve(musicians)
     
-    assert len(sessions) > 0, "Should create at least one session"
-    assert len(solver.assigned_musicians) > 0, "Should assign at least some musicians"
+    assert len(sessions) > 0, "should create sessions"
+    assert len(solver.assigned_musicians) > 0, "should assign musicians"
     
-    # Check that all sessions are valid
+    # check all sessions are valid
     for session in sessions:
-        assert 3 <= len(session.musicians) <= 6, "Session should have 3-6 musicians"
-        assert session.quality_score >= 0, "Quality score should be non-negative"
+        assert 3 <= len(session.musicians) <= 6, "session should have 3-6 musicians"
+        assert session.quality_score >= 0, "quality should be non-negative"
     
-    print(f"✓ Solver test passed: Created {len(sessions)} sessions")
+    print(f"Solver test passed - created {len(sessions)} sessions")
 
 if __name__ == "__main__":
-    print("Running CSP Tests...\n")
-    test_group_size_constraint()
-    test_rhythm_section_constraint()
-    test_skill_compatibility()
-    test_solver_basic()
-    print("\n✅ All tests passed!")
+    print("Running tests...\n")
+    test_group_size()
+    test_rhythm_section()
+    test_skill_scoring()
+    test_solver()
+    print("\nAll tests passed")

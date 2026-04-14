@@ -1,15 +1,13 @@
-# backend/adversarial_quality.py
-"""
-Adversarial Search Module for Quality Prediction
-Uses Nash Equilibrium concepts to predict session harmony
-"""
-from typing import List, Dict, Tuple
+# adversarial_quality.py
+# Quality prediction using Nash Equilibrium from game theory
+# Based on Russell & Norvig Ch 5 (adversarial search)
+
+from typing import List, Dict
 from dataclasses import dataclass
 from csp_solver import Musician, Session
 
 @dataclass
 class MusicianUtility:
-    """Utility scores for a musician in a session"""
     musician_id: int
     spotlight_utility: float
     skill_validation_utility: float 
@@ -18,44 +16,23 @@ class MusicianUtility:
     total_utility: float
 
 class AdversarialQualityPredictor:
-    """
-    Predict session quality using adversarial modeling
-    
-    Key Insight: Musicians have COMPETING objectives in a jam session:
-    - Leaders want spotlight time vs Supporters want to back others up
-    - Everyone wants appropriate skill challenge (not too easy, not too hard)
-    - Everyone wants familiar genres vs exploring new sounds
-    - Structured players vs Improvisers want different things
-    
-    Uses Nash Equilibrium concept: A stable session is one where
-    no musician would unilaterally prefer to leave.
-    """
     
     def __init__(self):
         self.weights = {
             'spotlight': 0.25,
-            'skill_validation': 0.35,
+            'skill_validation': 0.35, 
             'genre_comfort': 0.25,
             'role_satisfaction': 0.15
         }
     
-    def calculate_spotlight_utility(
-        self, 
-        musician: Musician, 
-        session_musicians: List[Musician]
-    ) -> float:
-        """
-        Calculate spotlight competition utility
+    def calculate_spotlight_utility(self, musician, session_musicians):
         
-        Leaders want spotlight, but too many leaders = conflict
-        Supporters want to support, but need someone to follow
-        """
-        other_musicians = [m for m in session_musicians if m.id != musician.id]
+        num_leaders = 0
+        for m in session_musicians:
+            if m.personality_leader > 0.6:
+                num_leaders += 1
         
-        # Count leaders and supporters
-        num_leaders = sum(1 for m in session_musicians if m.personality_leader > 0.6)
-        num_supporters = sum(1 for m in session_musicians if m.personality_leader < 0.4)
-        
+        # If this musician is a leader type
         if musician.personality_leader > 0.6:  
             if num_leaders == 1:
                 return 100.0 
@@ -66,209 +43,174 @@ class AdversarialQualityPredictor:
             else:
                 return 20.0  
         
+        # If this musician likes to support
         elif musician.personality_leader < 0.4:
             if num_leaders >= 1 and num_leaders <= 2:
                 return 100.0 
             elif num_leaders == 0:
-                return 40.0  
+                return 40.0 
             else:
                 return 70.0  
         
         else: 
-            return 80.0 
+            return 80.0
     
-    def calculate_skill_validation_utility(
-        self, 
-        musician: Musician, 
-        session_musicians: List[Musician]
-    ) -> float:
-        """
-        Calculate skill challenge utility
+    def calculate_skill_validation_utility(self, musician, session_musicians):
         
-        Musicians want to be challenged but not overwhelmed
-        The "Goldilocks zone" is ±1-2 skill points
-        """
         other_musicians = [m for m in session_musicians if m.id != musician.id]
-        other_skills = [m.skill_level for m in other_musicians]
-        
-        if not other_skills:
+        if not other_musicians:
             return 50.0
         
-        avg_other_skill = sum(other_skills) / len(other_skills)
-        skill_gap = abs(musician.skill_level - avg_other_skill)
+        other_skills = [m.skill_level for m in other_musicians]
+        avg_other = sum(other_skills) / len(other_skills)
         
-        # Calculate utility based on gap
-        if skill_gap <= 1:
-            return 100.0  
-        elif skill_gap <= 2:
-            return 85.0  
-        elif skill_gap <= 3:
-            return 60.0  
-        elif skill_gap <= 4:
-            return 35.0  
+        gap = abs(musician.skill_level - avg_other)
+        
+        # sweet spot is being close but not identical
+        if gap <= 1:
+            return 100.0
+        elif gap <= 2:
+            return 85.0
+        elif gap <= 3:
+            return 60.0
+        elif gap <= 4:
+            return 35.0
         else:
             return 10.0  
     
-    def calculate_genre_comfort_utility(
-        self, 
-        musician: Musician, 
-        session_musicians: List[Musician]
-    ) -> float:
-        """
-        Calculate genre familiarity utility
+    def calculate_genre_comfort_utility(self, musician, session_musicians):
         
-        Musicians want familiar territory but some variety is good
-        """
         other_musicians = [m for m in session_musicians if m.id != musician.id]
         
-        # Find overlapping genres
-        musician_genres = set(musician.genres)
+        my_genres = set(musician.genres)
         other_genres = set()
         for m in other_musicians:
-            other_genres.update(m.genres)
+            for g in m.genres:
+                other_genres.add(g)
         
-        overlap = musician_genres & other_genres
+        overlap = my_genres & other_genres
         
         if not other_genres:
             return 50.0
         
-        overlap_ratio = len(overlap) / len(musician_genres)
+        overlap_ratio = len(overlap) / len(my_genres)
         
         if overlap_ratio >= 0.75:
             return 100.0 
         elif overlap_ratio >= 0.5:
-            return 90.0   
+            return 90.0 
         elif overlap_ratio >= 0.33:
-            return 65.0 
+            return 65.0  
         elif overlap_ratio > 0:
-            return 40.0 
+            return 40.0  
         else:
-            return 10.0 
+            return 10.0  
     
-    def calculate_role_satisfaction_utility(
-        self, 
-        musician: Musician, 
-        session_musicians: List[Musician]
-    ) -> float:
-        """
-        Calculate role preference satisfaction
+    def calculate_role_satisfaction_utility(self, musician, session_musicians):
         
-        Improviser vs Structured preference
-        """
-        other_musicians = [m for m in session_musicians if m.id != musician.id]
+        # calculate group average
+        total_improv = 0
+        for m in session_musicians:
+            total_improv += m.personality_improviser
+        avg_improv = total_improv / len(session_musicians)
         
-        # Calculate average improvisation preference
-        avg_improv = sum(m.personality_improviser for m in session_musicians) / len(session_musicians)
-        
+        # if this musician loves to improvise
         if musician.personality_improviser > 0.7:
             if avg_improv > 0.6:
                 return 100.0 
             elif avg_improv > 0.4:
-                return 75.0
-            else:
-                return 40.0  
-        
-        elif musician.personality_improviser < 0.3:
-            if avg_improv < 0.4:
-                return 100.0 
-            elif avg_improv < 0.6:
                 return 75.0 
             else:
-                return 40.0  
+                return 40.0 
         
-        else: 
-            return 85.0  
+        # if this musician prefers structure
+        elif musician.personality_improviser < 0.3:
+            if avg_improv < 0.4:
+                return 100.0  
+            elif avg_improv < 0.6:
+                return 75.0  
+            else:
+                return 40.0 
+        
+        else:  
+            return 85.0
     
-    def calculate_musician_utility(
-        self, 
-        musician: Musician, 
-        session_musicians: List[Musician]
-    ) -> MusicianUtility:
-        """
-        Calculate total utility for a musician in this session
-        """
-        spotlight_util = self.calculate_spotlight_utility(musician, session_musicians)
-        skill_util = self.calculate_skill_validation_utility(musician, session_musicians)
-        genre_util = self.calculate_genre_comfort_utility(musician, session_musicians)
-        role_util = self.calculate_role_satisfaction_utility(musician, session_musicians)
+    def calculate_musician_utility(self, musician, session_musicians):
         
-        # Weighted sum
-        total_utility = (
-            self.weights['spotlight'] * spotlight_util +
-            self.weights['skill_validation'] * skill_util +
-            self.weights['genre_comfort'] * genre_util +
-            self.weights['role_satisfaction'] * role_util
+        spot = self.calculate_spotlight_utility(musician, session_musicians)
+        skill = self.calculate_skill_validation_utility(musician, session_musicians)
+        genre = self.calculate_genre_comfort_utility(musician, session_musicians)
+        role = self.calculate_role_satisfaction_utility(musician, session_musicians)
+        
+        total = (
+            self.weights['spotlight'] * spot +
+            self.weights['skill_validation'] * skill +
+            self.weights['genre_comfort'] * genre +
+            self.weights['role_satisfaction'] * role
         )
         
         return MusicianUtility(
             musician_id=musician.id,
-            spotlight_utility=spotlight_util,
-            skill_validation_utility=skill_util,
-            genre_comfort_utility=genre_util,
-            role_satisfaction_utility=role_util,
-            total_utility=total_utility
+            spotlight_utility=spot,
+            skill_validation_utility=skill,
+            genre_comfort_utility=genre,
+            role_satisfaction_utility=role,
+            total_utility=total
         )
     
-    def predict_session_quality(self, session_musicians: List[Musician]) -> Dict:
-        """
-        Predict overall session quality using Nash Equilibrium concept
+    def predict_session_quality(self, session_musicians):
         
-        A high-quality session is one where:
-        1. Average utility is high (everyone is reasonably happy)
-        2. Minimum utility is acceptable (no one is miserable)
-        3. Variance is low (balanced satisfaction)
-        
-        Nash Equilibrium interpretation:
-        - If min_utility is high, no musician would unilaterally choose to leave
-        - This indicates a stable, sustainable jam session
-        """
         utilities = []
-        musician_details = {}
+        details = {}
         
         for musician in session_musicians:
             util = self.calculate_musician_utility(musician, session_musicians)
             utilities.append(util.total_utility)
-            musician_details[musician.name] = util
+            details[musician.name] = util
         
-        # Calculate metrics
-        avg_utility = sum(utilities) / len(utilities)
-        min_utility = min(utilities)
-        max_utility = max(utilities)
+        # stats
+        avg = sum(utilities) / len(utilities)
+        min_util = min(utilities)
+        max_util = max(utilities)
         
-        # Calculate variance
-        variance = sum((u - avg_utility) ** 2 for u in utilities) / len(utilities)
+        # variance calculation
+        var = 0
+        for u in utilities:
+            var += (u - avg) ** 2
+        var = var / len(utilities)
         
-        # Nash Equilibrium stability score
-        stability_score = min_utility
+        stability = min_util
         
-        # Overall quality
-        quality_score = (
-            0.4 * avg_utility +  
-            0.4 * min_utility +    
-            0.2 * (100 - variance)  
+        quality = (
+            0.4 * avg +     
+            0.4 * min_util + 
+            0.2 * (100 - var)    
         )
         
         return {
-            'quality_score': round(quality_score, 1),
-            'stability_score': round(stability_score, 1),
-            'avg_utility': round(avg_utility, 1),
-            'min_utility': round(min_utility, 1),
-            'max_utility': round(max_utility, 1),
-            'variance': round(variance, 1),
-            'musician_utilities': musician_details,
-            'nash_equilibrium_satisfied': min_utility > 60.0 
+            'quality_score': round(quality, 1),
+            'stability_score': round(stability, 1),
+            'avg_utility': round(avg, 1),
+            'min_utility': round(min_util, 1),
+            'max_utility': round(max_util, 1),
+            'variance': round(var, 1),
+            'musician_utilities': details,
+            'nash_equilibrium_satisfied': min_util > 60.0 
         }
 
-# Test the predictor
+
+# Testing code
 if __name__ == "__main__":
+    import sys
+    import os
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    
     from csp_solver import BasicCSPSolver
     
-    # Load musicians
     solver = BasicCSPSolver()
     musicians = solver.load_musicians('data/musicians_dataset.json')
     
-    # Create a test session
-    test_session = musicians[:4] 
+    test_session = musicians[:4]
     
     print("Testing Adversarial Quality Predictor")
     print("="*60)

@@ -1,16 +1,17 @@
 # generate_dataset.py
+# creates synthetic musician data for testing
+
 import random
 import json
 import numpy as np
 
-# Configuration
 NUM_MUSICIANS = 100
-RANDOM_SEED = 42  # For reproducibility
+RANDOM_SEED = 42
 
 random.seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
 
-# Realistic distributions
+# based on typical instrument distributions in community music programs
 INSTRUMENTS = {
     "Guitar": 30,
     "Vocals": 20,
@@ -45,44 +46,37 @@ DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 TIME_SLOTS = ["06-09", "09-12", "12-15", "15-18", "18-21", "21-00"]
 
 def generate_musician(id_num):
-    """Generate one realistic musician profile"""
     
-    # Random name (ensure uniqueness by combining with number if needed)
     first = random.choice(FIRST_NAMES)
     last = random.choice(LAST_NAMES)
     name = f"{first} {last}"
     
-    # Weighted random instrument
+    # pick instrument based on weights
     instrument = random.choices(
         list(INSTRUMENTS.keys()),
         weights=list(INSTRUMENTS.values())
     )[0]
     
-    # Skill level: Normal distribution (mean=6, std=2)
-    # Most people are average (5-7), fewer beginners (1-3) and experts (8-10)
+    # skill: normal distribution, mean 6, std 2
     skill = int(np.clip(np.random.normal(6, 2), 1, 10))
     
-    # Random 2-4 genres (more likely to have 2-3)
+    # pick 2-4 genres randomly
     num_genres = random.choices([2, 3, 4], weights=[0.4, 0.4, 0.2])[0]
     genres = random.sample(GENRES, num_genres)
     
-    # Random availability (5-15 hours per week)
-    # Most people have 2-5 time slots available
+    # availability: 2-6 time slots
     num_slots = random.randint(2, 6)
     availability = []
     for _ in range(num_slots):
         day = random.choice(DAYS)
         time = random.choice(TIME_SLOTS)
         slot = f"{day}_{time}"
-        if slot not in availability:  # Avoid duplicates
+        if slot not in availability:
             availability.append(slot)
     
-    # Random location
     location = random.choice(LOCATIONS)
     
-    # Personality traits (0.0 to 1.0)
-    # Leader: 0.0 = always support, 1.0 = always lead
-    # Improviser: 0.0 = structured only, 1.0 = pure improv
+    # personality: 0 to 1 scale
     personality_leader = round(random.random(), 2)
     personality_improviser = round(random.random(), 2)
     
@@ -99,67 +93,74 @@ def generate_musician(id_num):
     }
 
 def main():
-    """Generate 100 musicians and save to JSON file"""
     
-    print(f"🎵 Generating {NUM_MUSICIANS} synthetic musicians...")
-    print(f"   Using random seed: {RANDOM_SEED} (for reproducibility)\n")
+    print(f"Generating {NUM_MUSICIANS} musicians...")
+    print(f"Using seed: {RANDOM_SEED}\n")
     
     musicians = []
     for i in range(1, NUM_MUSICIANS + 1):
         musician = generate_musician(i)
         musicians.append(musician)
         
-        # Print progress
         if i % 10 == 0:
-            print(f"   Generated {i}/{NUM_MUSICIANS}...")
+            print(f"Generated {i}/{NUM_MUSICIANS}...")
     
-    # Save to JSON file
     output_file = "data/musicians_dataset.json"
     with open(output_file, 'w') as f:
         json.dump(musicians, f, indent=2)
     
-    print(f"\n✅ Successfully generated {NUM_MUSICIANS} musicians!")
-    print(f"📁 Saved to: {output_file}")
+    print(f"\nGenerated {NUM_MUSICIANS} musicians")
+    print(f"Saved to: {output_file}")
     
-    # Print statistics
-    print("\n📊 Dataset Statistics:")
-    print(f"   Total musicians: {len(musicians)}")
+    # print some stats
+    print("\nDataset Statistics:")
+    print(f"Total musicians: {len(musicians)}")
     
-    # Count instruments
     from collections import Counter
-    instrument_counts = Counter(m['instrument'] for m in musicians)
+    instrument_counts = Counter()
+    for m in musicians:
+        instrument_counts[m['instrument']] += 1
     
-    print("\n   Instruments:")
+    print("\nInstruments:")
     for inst, count in sorted(instrument_counts.items(), key=lambda x: x[1], reverse=True):
-        print(f"      {inst}: {count}")
+        print(f"  {inst}: {count}")
     
-    # Skill distribution
-    skills = [m['skill_level'] for m in musicians]
-    print(f"\n   Skill Levels:")
-    print(f"      Average: {sum(skills)/len(skills):.1f}")
-    print(f"      Range: {min(skills)} - {max(skills)}")
-    print(f"      Distribution:")
+    skills = []
+    for m in musicians:
+        skills.append(m['skill_level'])
+    
+    print(f"\nSkill Levels:")
+    print(f"  Average: {sum(skills)/len(skills):.1f}")
+    print(f"  Range: {min(skills)} - {max(skills)}")
+    print(f"  Distribution:")
+    
     skill_dist = Counter(skills)
     for skill in range(1, 11):
         count = skill_dist.get(skill, 0)
-        bar = '▓' * count
-        print(f"         {skill:2d}: {bar} ({count})")
+        print(f"    {skill:2d}: {count}")
     
-    # Genre distribution
-    all_genres = [g for m in musicians for g in m['genres']]
+    # genre stats
+    all_genres = []
+    for m in musicians:
+        for g in m['genres']:
+            all_genres.append(g)
+    
     genre_counts = Counter(all_genres)
-    print(f"\n   Top 5 Genres:")
+    print(f"\nTop 5 Genres:")
     for genre, count in genre_counts.most_common(5):
-        print(f"      {genre}: {count}")
+        print(f"  {genre}: {count}")
     
-    # Location distribution
-    location_counts = Counter(m['location'] for m in musicians)
-    print(f"\n   Locations:")
-    for loc, count in sorted(location_counts.items()):
-        print(f"      {loc}: {count}")
+    # location stats
+    location_counts = Counter()
+    for m in musicians:
+        location_counts[m['location']] += 1
     
-    print("\n🎉 Dataset ready to use!")
-    print(f"💡 Next: Upload {output_file} to Google Colab to explore!")
+    print(f"\nLocations:")
+    for loc in sorted(location_counts.keys()):
+        count = location_counts[loc]
+        print(f"  {loc}: {count}")
+    
+    print("\nDone!")
 
 if __name__ == "__main__":
     main()
