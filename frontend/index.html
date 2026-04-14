@@ -316,7 +316,7 @@
         <!-- Results View -->
         <div id="resultsView" class="results">
             <button class="back-button" onclick="resetForm()">← Back to Form</button>
-            <h1>🎉 Your Perfect Matches!</h1>
+            <h1>Your Perfect Matches!</h1>
             <p class="subtitle" id="resultsSubtitle"></p>
             <div id="sessionsList"></div>
         </div>
@@ -393,8 +393,8 @@
                 genres: genres,
                 availability: Array.from(selectedSlots),
                 location: document.getElementById('location').value,
-                personality_leader: 0.5,  // Default
-                personality_improviser: 0.5  // Default
+                personality_leader: 0.5, 
+                personality_improviser: 0.5  
             };
             
             // Show loading
@@ -444,7 +444,7 @@
                 const card = document.createElement('div');
                 card.className = 'session-card';
                 
-                const rank = index === 0 ? '⭐ BEST MATCH' : `Match #${index + 1}`;
+                const rank = index === 0 ? 'BEST MATCH' : `Match #${index + 1}`;
                 
                 card.innerHTML = `
                     <div class="session-header">

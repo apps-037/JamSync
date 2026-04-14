@@ -64,7 +64,7 @@ def find_sessions():
         if not user_data:
             return jsonify({'success': False, 'error': 'No data provided'}), 400
         
-        print(f"\n📥 Received request for: {user_data.get('name', 'Unknown')}")
+        print(f"\nReceived request for: {user_data.get('name', 'Unknown')}")
         print(f"   Instrument: {user_data.get('instrument')}")
         print(f"   Skill: {user_data.get('skill_level')}")
         print(f"   Availability slots: {len(user_data.get('availability', []))}")
@@ -90,23 +90,17 @@ def find_sessions():
         
         print(f"   Finding compatible sessions...")
         
-        # SIMPLER APPROACH: Use greedy matching for user-facing API
-        # (A* is great but can be too selective for demo purposes)
-        
         heuristics = GroupFormationHeuristics()
         recommendations = []
         session_id = 1
         
-        # For each of user's time slots
         for time_slot in new_musician.availability[:10]:
-            # Find compatible musicians at this time
             compatible = []
             
             for m in static_musicians:
                 if time_slot not in m.availability:
                     continue
                 
-                # Check basic compatibility
                 skill_diff = abs(m.skill_level - new_musician.skill_level)
                 genre_overlap = len(set(m.genres) & set(new_musician.genres))
                 
@@ -117,7 +111,6 @@ def find_sessions():
                         'genre_overlap': genre_overlap
                     })
             
-            # Sort by compatibility
             compatible.sort(key=lambda x: (x['genre_overlap'], -x['skill_diff']), reverse=True)
             
             if len(compatible) < 2:
@@ -127,10 +120,8 @@ def find_sessions():
             group_size = min(5, len(compatible))
             session_musicians = [new_musician] + [c['musician'] for c in compatible[:group_size]]
             
-            # Make sure we have rhythm section
             has_rhythm = any(m.instrument in ['Drums', 'Bass'] for m in session_musicians)
             
-            # If no rhythm, try to add one
             if not has_rhythm:
                 for c in compatible:
                     if c['musician'].instrument in ['Drums', 'Bass']:
@@ -167,7 +158,7 @@ def find_sessions():
         # Take top 5
         top_recommendations = recommendations[:5]
         
-        print(f"   ✓ Found {len(top_recommendations)} matching sessions")
+        print(f"Found {len(top_recommendations)} matching sessions")
         if top_recommendations:
             print(f"   Best quality: {top_recommendations[0]['quality_score']:.1f}%")
         
@@ -179,7 +170,7 @@ def find_sessions():
         }), 200
     
     except Exception as e:
-        print(f"   ❌ Error: {str(e)}")
+        print(f"Error: {str(e)}")
         import traceback
         traceback.print_exc()
         
@@ -192,7 +183,7 @@ def find_sessions():
 def get_all_sessions():
     """Get all generated sessions (admin view)"""
     try:
-        print("\n📊 Generating full schedule for all musicians...")
+        print("\nGenerating full schedule for all musicians...")
         
         full_solver = BasicCSPSolver(use_adversarial_prediction=True, use_astar=True)
         full_solver.sessions_created = []
@@ -228,7 +219,7 @@ def get_all_sessions():
         }), 200
     
     except Exception as e:
-        print(f"   ❌ Error: {str(e)}")
+        print(f"Error: {str(e)}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.errorhandler(404)
@@ -245,13 +236,13 @@ if __name__ == '__main__':
     print("="*70)
     print(f"\n✓ Loaded {len(static_musicians)} musicians")
     print(f"✓ Using Hybrid algorithm (A* + Adversarial Prediction)")
-    print(f"\n🌐 Server running on http://localhost:5000")
-    print("\n📡 Endpoints:")
+    print(f"\nServer running on http://localhost:5000")
+    print("\nEndpoints:")
     print("   GET  http://localhost:5000/")
     print("   GET  http://localhost:5000/api/health")
     print("   POST http://localhost:5000/api/find-sessions")
     print("   GET  http://localhost:5000/api/all-sessions")
-    print("\n🔓 CORS enabled for all origins")
+    print("\nCORS enabled for all origins")
     print("\nPress Ctrl+C to stop")
     print("="*70 + "\n")
     

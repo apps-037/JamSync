@@ -12,10 +12,10 @@ from csp_solver import Musician, Session, ConstraintChecker
 class SearchNode:
     """Node in A* search tree"""
     priority: float = field(compare=True)  # f(n) = g(n) + h(n)
-    g_cost: float = field(compare=False)   # Cost so far
-    h_cost: float = field(compare=False)   # Heuristic estimate
-    musicians: List[Musician] = field(compare=False)  # Current group
-    available_pool: List[Musician] = field(compare=False)  # Remaining musicians to add
+    g_cost: float = field(compare=False) 
+    h_cost: float = field(compare=False) 
+    musicians: List[Musician] = field(compare=False)
+    available_pool: List[Musician] = field(compare=False) 
 
 class GroupFormationHeuristics:
     """
@@ -44,7 +44,7 @@ class GroupFormationHeuristics:
         
         score = 0.0
         
-        # Perfect combinations (bonus points)
+        # Perfect combinations
         has_guitar = 'Guitar' in instruments
         has_bass = 'Bass' in instruments
         has_drums = 'Drums' in instruments
@@ -52,23 +52,22 @@ class GroupFormationHeuristics:
         
         # Classic rhythm section
         if has_bass and has_drums:
-            score += 40  # Strong foundation
+            score += 40
         
         # Full band
         if has_guitar and has_bass and has_drums:
-            score += 30  # Rock trio/quartet
+            score += 30 
         
         if has_keys and has_bass and has_drums:
-            score += 30  # Jazz combo
+            score += 30 
         
         # Penalties for redundancy
         for inst, count in instrument_counts.items():
             if count > 1 and inst not in ['Guitar', 'Vocals']:
-                score -= 20 * (count - 1)  # Multiple drummers = bad
-            elif count > 3:  # Even guitar/vocals shouldn't exceed 3
+                score -= 20 * (count - 1)  
+            elif count > 3: 
                 score -= 10 * (count - 3)
         
-        # Diversity bonus
         unique_instruments = len(set(instruments))
         score += unique_instruments * 5
         
@@ -92,17 +91,17 @@ class GroupFormationHeuristics:
         
         # Score based on variance
         if skill_range == 0:
-            return 50.0  # All same skill = no learning opportunity
+            return 50.0  
         elif skill_range <= 2:
-            return 100.0  # Perfect! Tight but not identical
+            return 100.0 
         elif skill_range <= 3:
-            return 85.0   # Good range
+            return 85.0   
         elif skill_range <= 4:
-            return 60.0   # Manageable
+            return 60.0  
         elif skill_range <= 5:
-            return 35.0   # Getting difficult
+            return 35.0  
         else:
-            return 10.0   # Too wide a gap
+            return 10.0  
     
     def h_genre_consensus(self, group: List[Musician]) -> float:
         """
@@ -129,12 +128,12 @@ class GroupFormationHeuristics:
         common_genres = [g for g, count in genre_counts.items() if count >= threshold]
         
         if not common_genres:
-            return 20.0  # No common ground - will struggle
+            return 20.0
         
         # Score based on how many common genres and how widely shared
         consensus_strength = sum(genre_counts[g] for g in common_genres) / len(all_genres)
         
-        base_score = len(common_genres) * 25  # More common genres = better
+        base_score = len(common_genres) * 25 
         consensus_bonus = consensus_strength * 50
         
         return min(100.0, base_score + consensus_bonus)
@@ -157,17 +156,17 @@ class GroupFormationHeuristics:
         
         # Ideal configurations
         if leaders == 1 and supporters >= 1:
-            return 100.0  # Perfect! Clear leader with support
+            return 100.0  
         elif leaders == 2 and supporters >= 1:
-            return 90.0   # Good, can co-lead
+            return 90.0  
         elif leaders == 1 and flexible >= 2:
-            return 85.0   # Workable
+            return 85.0  
         elif leaders == 0 and supporters >= 2:
-            return 50.0   # No clear direction
+            return 50.0 
         elif leaders >= 3:
-            return 30.0   # Too many chiefs
+            return 30.0  
         else:
-            return 70.0   # Acceptable
+            return 70.0 
     
     def combined_heuristic(self, group: List[Musician]) -> float:
         """
@@ -183,10 +182,10 @@ class GroupFormationHeuristics:
         
         # Weighted combination
         combined = (
-            0.30 * synergy +      # Instrument balance is crucial
-            0.30 * variance +     # Skill match is crucial
-            0.25 * consensus +    # Genre overlap is important
-            0.15 * balance        # Personality is nice to have
+            0.30 * synergy +    
+            0.30 * variance +   
+            0.25 * consensus +  
+            0.15 * balance     
         )
         
         return combined
@@ -235,13 +234,10 @@ class AStarGroupFormation:
         """
         successors = []
         
-        # Don't exceed max group size
         if len(current_group) >= 6:
             return successors
         
-        # Try adding each available musician
         for musician in available_pool:
-            # Check if adding this musician keeps availability valid
             new_group = current_group + [musician]
             
             if self.constraint_checker.check_availability(new_group, time_slot):
@@ -261,9 +257,7 @@ class AStarGroupFormation:
         Returns: Best group of musicians (or None if no valid group found)
         """
         self.nodes_explored = 0
-        
-        # Priority queue: (f_score, g_cost, h_cost, group, available_pool)
-        # We negate scores because heapq is a min-heap but we want max quality
+   
         start_node = SearchNode(
             priority=0.0,
             g_cost=0.0,
@@ -279,13 +273,12 @@ class AStarGroupFormation:
         best_complete_group = None
         best_score = -float('inf')
         
-        while frontier and self.nodes_explored < 1000:  # Limit search
+        while frontier and self.nodes_explored < 1000:  
             current = heapq.heappop(frontier)
             self.nodes_explored += 1
             
             current_group = current.musicians
             
-            # Create state signature for explored set
             state_signature = tuple(sorted(m.id for m in current_group))
             if state_signature in explored:
                 continue
@@ -312,9 +305,8 @@ class AStarGroupFormation:
                 g_cost = -self.heuristics.combined_heuristic(new_group)
                 
                 # h(n) = estimated remaining potential
-                # Simple heuristic: potential improvement from adding more musicians
                 remaining_slots = max_group_size - len(new_group)
-                h_cost = -remaining_slots * 10  # Optimistic estimate
+                h_cost = -remaining_slots * 10  
                 
                 # f(n) = g(n) + h(n)
                 f_cost = g_cost + h_cost

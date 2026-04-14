@@ -275,7 +275,7 @@ class BasicCSPSolver:
         match_rate = (len(self.assigned_musicians) / len(musicians)) * 100
         avg_quality = sum(s.quality_score for s in self.sessions_created) / len(self.sessions_created) if self.sessions_created else 0
         
-        print(f"\n📊 Results:")
+        print(f"\n Results:")
         print(f"   Sessions created: {len(self.sessions_created)}")
         print(f"   Musicians matched: {len(self.assigned_musicians)}/{len(musicians)} ({match_rate:.1f}%)")
         print(f"   Average quality: {avg_quality:.1f}%")

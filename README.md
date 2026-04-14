@@ -1,262 +1,143 @@
-# 🎸 JamSync - AI-Powered Music Collaboration
+# JamSync: AI-Powered Musician Matching
 
-> Constraint Satisfaction Problem (CSP) solver for intelligent musician scheduling
+**Authors:** Apurva Saini, Yuvraj Anupam Chauhan  
+**Course:** Foundations of Artificial Intelligence, Northeastern University  
+**Date:** April 13, 2026  
+**Repository:** [github.com/apps-037/JamSync](https://github.com/apps-037/JamSync)
 
 ---
 
-## 🚀 Quick Start (3 Steps!)
+## Overview
 
-### **1. Install Python** (if you don't have it)
-- Download from [python.org](https://python.org) (Python 3.8 or higher)
+JamSync uses constraint satisfaction (CSP), adversarial search, and A* algorithms to schedule musicians into optimal jam sessions. The system processes 100 musicians in <3 seconds, achieving 37-54% match rates with 71-91% quality scores depending on algorithm configuration.
 
-### **2. Run the setup script**
+---
+
+## Quick Start
 
 ```bash
-# Navigate to the jamsync folder
-cd jamsync
+# Install dependencies
+pip install flask flask-cors numpy matplotlib
 
-# Run the setup script
-python run.py
+# Run CLI demo
+python3 demo.py
+
+# Or run algorithm comparison
+python3 backend/csp_solver.py
+
+# Or start web interface
+python3 backend/api.py  # Terminal 1
+cd frontend && python3 -m http.server 8000  # Terminal 2
+# Open http://localhost:8000
 ```
-
-That's it! The script will:
-- ✅ Install dependencies (Flask, Flask-CORS)
-- ✅ Generate dataset (100 musicians, 6 locations)
-- ✅ Start backend server
-- ✅ Open frontend in your browser
-
-### **3. Use the app**
-- Click **"Generate AI Schedule"** button
-- Watch the AI create optimized jam sessions!
-- View quality scores, musicians, times, and locations
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 jamsync/
-├── run.py                          # 🚀 RUN THIS to start everything
-├── app.py                          # Flask backend API
-├── frontend.html                   # Beautiful web interface
-├── generate_dataset_carter.py      # Dataset generator
-├── src/
-│   ├── models.py                   # Data structures
-│   └── csp_solver/
-│       └── solver.py               # CSP algorithm
-├── data/                           # Generated dataset (auto-created)
-│   ├── musicians.json
-│   ├── locations.json
-│   └── config.json
-└── results/                        # Experimental results
+├── data/
+│   ├── musicians_dataset.json       # 100 musician profiles
+│   └── generate_dataset.py          # Dataset generator
+├── backend/
+│   ├── csp_solver.py                # CSP with forward checking
+│   ├── adversarial_quality.py       # Nash Equilibrium predictor
+│   ├── astar_grouping.py            # A* with domain heuristics
+│   └── api.py                       # Flask REST API
+├── analysis/
+│   ├── create_visualizations.py     # Generate charts
+│   ├── algorithm_comparison.png
+│   └── quality_tradeoff.png
+├── tests/
+│   └── test_csp.py                  # Unit tests
+├── frontend/
+│   └── index.html                   # Web UI
+└── demo.py                          # CLI interface
 ```
 
 ---
 
-## 🎯 How It Works
+## How It Works
 
-### **1. Load Data**
-- 100 musician profiles (instruments, skills, genres, availability)
-- 6 practice locations (capacity, equipment, hours)
+### 1. Constraint Satisfaction (CSP)
 
-### **2. Run CSP Solver**
-Following Carter's exam timetabling methodology (1996):
-- **Variables:** Jam sessions to create
-- **Domains:** Possible musician combinations
-- **Hard Constraints:** 
-  - All musicians available at same time
-  - Location has capacity
-  - Has rhythm section (bass/drums)
-- **Soft Constraints:**
-  - Skill compatibility
-  - Genre overlap
-  - Personality balance
-  - Instrument diversity
+**Hard Constraints:**
+- Availability overlap (all musicians free at same time)
+- Group size (3-6 musicians)
+- Rhythm section (≥1 drummer or bassist)
+- No double-booking
 
-### **3. Quality Prediction**
-Each session gets a quality score (0-100) based on:
-- Skill compatibility (30%)
-- Genre overlap (30%)
-- Personality fit (20%)
-- Instrument diversity (20%)
+**Soft Constraints:**
+- Skill compatibility: 40% weight
+- Genre overlap: 40% weight
+- Personality balance: 20% weight
 
-### **4. View Results**
-Beautiful frontend shows:
-- 20-30 generated sessions
-- Quality predictions
-- Musician lineups
-- Schedule times and locations
+**Algorithm:** Backtracking with forward checking, constraint ordering
+
+### 2. Adversarial Search
+
+Models musicians with competing objectives (spotlight time, skill validation, genre comfort). Uses Nash Equilibrium: session is stable if no musician would unilaterally leave (min utility > 60%).
+
+**Quality Formula:**
+```
+Q = 0.4×mean(utility) + 0.4×min(utility) + 0.2×(100 - variance)
+```
+
+### 3. A* Search
+
+Finds optimal groups using four heuristics:
+- **Instrument synergy** (30%): Rewards balanced combinations
+- **Skill variance** (30%): Goldilocks principle (1-3 point spread)
+- **Genre consensus** (25%): Requires shared vocabulary
+- **Role balance** (15%): 1-2 leaders optimal
 
 ---
 
-## 💻 Manual Usage
+## Results
 
-If you want to run components separately:
+| Algorithm | Sessions | Match Rate | Avg Quality | Runtime |
+|-----------|----------|------------|-------------|---------|
+| Greedy CSP | 10 | 54% | 71.1% | 0.8s |
+| CSP + A* | 10 | 37% | 90.8% | 2.1s |
+| Hybrid | 10 | 37% | 79.3% | 2.4s |
 
-### **Generate Dataset Only**
+**Key Finding:** A* achieves 27.7% higher quality but matches fewer musicians, demonstrating fundamental quality-quantity tradeoff.
+
+**Best Session:** A* found 100% quality session (bass, drums, guitar, keys with skills 3,6,6,6)
+
+---
+
+## Dataset
+
+**Source:** Synthetically generated (100 musicians)  
+**Distributions:** Guitar (30%), Vocals (20%), Keys (15%), Drums (10%), Bass (10%), Other (15%)  
+**Skills:** Normal distribution (μ=6, σ=2), range [1-10]  
+**Genres:** 10 categories, 2-4 per musician  
+**Availability:** 2-6 slots from 42 possible windows  
+
+**Regenerate:**
 ```bash
-python generate_dataset_carter.py
+python3 data/generate_dataset.py
 ```
 
-### **Start Backend Only**
+---
+
+## Testing
+
 ```bash
-python app.py
-```
-Then open `frontend.html` in your browser
-
-### **Test CSP Solver Directly**
-```bash
-cd src/csp_solver
-python solver.py
+python3 tests/test_csp.py
 ```
 
----
-
-## 🎨 Frontend Features
-
-- **Modern Design:** Gradient backgrounds, smooth animations
-- **Interactive:** Hover effects, clickable cards
-- **Responsive:** Works on desktop and mobile
-- **Real-time:** Shows loading states, progress indicators
-- **Visual Quality Scores:** Color-coded by quality level
-  - 🔵 Blue (85-100): Excellent match
-  - 🟡 Yellow (70-84): Good match
-  - 🔴 Pink (<70): Okay match
+All tests validate:
+- Constraint enforcement (group size, rhythm, availability)
+- Quality scoring accuracy
+- Solver correctness
 
 ---
 
-## 🧪 Running Experiments
+## References
 
-For your project report, run experiments:
-
-```python
-# Create experiments/run_all.py
-from src.csp_solver.solver import CSPSolver
-from src.utils.data_loader import load_data, create_problem
-
-# Test with different sizes
-for n_musicians in [10, 25, 50, 100]:
-    # ... run solver, collect metrics
-
-# Compare algorithms
-results = {
-    'csp_only': run_csp(),
-    'csp_with_quality': run_with_quality(),
-}
-
-# Generate charts
-import matplotlib.pyplot as plt
-# ... create comparison visualizations
-```
-
----
-
-## 📊 Sample Output
-
-```
-🎸 Starting CSP Solver...
-   Musicians: 100
-   Locations: 6
-   Timeslots: 20
-   Target sessions: 25
-
-📊 Generating possible sessions...
-   Generated 695 valid combinations
-
-🔍 Selecting non-conflicting sessions...
-   Selected 25 sessions
-
-✅ Solution found!
-
-Sessions Created: 25
-Musicians Matched: 87/100 (87.0%)
-Average Quality: 84.3/100
-```
-
----
-
-## 🎓 Academic Context
-
-This project implements:
-- **Constraint Satisfaction Problems (CSP)** from course topic 7
-- **Forward Checking & Arc Consistency** (AC-3 algorithm)
-- **Informed Search** with custom heuristics
-- **Greedy Selection** algorithm
-- **Quality Prediction** using multi-criteria scoring
-
-Based on Carter's exam timetabling benchmark:
-> Carter, M.W., Laporte, G., Lee, S.Y. (1996). "Examination timetabling: 
-> Algorithmic strategies and applications." Journal of the Operational 
-> Research Society, 47(3), 373-383.
-
----
-
-## 🛠️ Dependencies
-
-- Python 3.8+
-- Flask (auto-installed)
-- Flask-CORS (auto-installed)
-- No other external libraries needed!
-
----
-
-## 📝 For Your Report
-
-Key metrics to include:
-- **Runtime:** ~2-5 seconds for 100 musicians
-- **Match Rate:** 85-95% of musicians successfully scheduled
-- **Average Quality:** 80-90/100
-- **Scalability:** Tests with 10, 50, 100, 200 musicians
-- **Comparison:** CSP vs CSP+Quality Prediction
-
----
-
-## 🐛 Troubleshooting
-
-**"Module not found" error:**
-```bash
-pip install flask flask-cors
-```
-
-**"Port 5000 already in use":**
-- Stop other Flask apps
-- Or change port in `app.py`: `app.run(port=5001)`
-
-**"Dataset not found":**
-```bash
-python generate_dataset_carter.py
-# Move files to data/ folder
-```
-
-**Frontend not connecting to backend:**
-- Make sure backend is running (`python app.py`)
-- Check browser console for errors
-- Verify URL is `http://localhost:5000`
-
----
-
-## 🌟 Features
-
-✅ AI-powered musician matching  
-✅ Constraint satisfaction scheduling  
-✅ Quality prediction (before jamming!)  
-✅ Beautiful, interactive UI  
-✅ Real-time schedule generation  
-✅ Follows academic research methodology  
-✅ Scalable to 1000+ musicians  
-
----
-
-## 📧 Questions?
-
-This is a university project for **Foundations of Artificial Intelligence**.
-
-**Author:** [Your Name]  
-**Course:** Foundations of AI  
-**Due Date:** April 13, 2026
-
----
-
-## 🎉 Enjoy JamSync!
-
-Created with ❤️ using AI techniques from the course
+- Burke, E. K., et al. (1997). University timetabling using genetic algorithms and CSP
+- Schaerf, A. (1999). Survey of automated timetabling. AI Review, 13(2), 87-127
+- Gusfield, D. & Irving, R. W. (1989). The Stable Marriage Problem. MIT Press

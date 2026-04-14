@@ -11,10 +11,10 @@ from csp_solver import Musician, Session
 class MusicianUtility:
     """Utility scores for a musician in a session"""
     musician_id: int
-    spotlight_utility: float      # How much spotlight time they get
-    skill_validation_utility: float  # Are they challenged appropriately?
-    genre_comfort_utility: float   # Playing familiar music?
-    role_satisfaction_utility: float  # Getting preferred role?
+    spotlight_utility: float
+    skill_validation_utility: float 
+    genre_comfort_utility: float 
+    role_satisfaction_utility: float  
     total_utility: float
 
 class AdversarialQualityPredictor:
@@ -56,28 +56,26 @@ class AdversarialQualityPredictor:
         num_leaders = sum(1 for m in session_musicians if m.personality_leader > 0.6)
         num_supporters = sum(1 for m in session_musicians if m.personality_leader < 0.4)
         
-        if musician.personality_leader > 0.6:  # This musician is a leader
-            # Leaders want spotlight but not too much competition
+        if musician.personality_leader > 0.6:  
             if num_leaders == 1:
-                return 100.0  # Perfect! Only leader
+                return 100.0 
             elif num_leaders == 2:
-                return 80.0   # Good, can share spotlight
+                return 80.0 
             elif num_leaders == 3:
-                return 50.0   # Crowded, but manageable
+                return 50.0 
             else:
-                return 20.0   # Too many leaders competing
+                return 20.0  
         
-        elif musician.personality_leader < 0.4:  # This musician is a supporter
-            # Supporters want someone to follow
+        elif musician.personality_leader < 0.4:
             if num_leaders >= 1 and num_leaders <= 2:
-                return 100.0  # Perfect! Clear leadership
+                return 100.0 
             elif num_leaders == 0:
-                return 40.0   # No one to follow
+                return 40.0  
             else:
-                return 70.0   # Multiple leaders to support
+                return 70.0  
         
-        else:  # Flexible musician
-            return 80.0  # Happy in most situations
+        else: 
+            return 80.0 
     
     def calculate_skill_validation_utility(
         self, 
@@ -101,15 +99,15 @@ class AdversarialQualityPredictor:
         
         # Calculate utility based on gap
         if skill_gap <= 1:
-            return 100.0  # Perfect match! Will learn and contribute equally
+            return 100.0  
         elif skill_gap <= 2:
-            return 85.0   # Good match, slight challenge
+            return 85.0  
         elif skill_gap <= 3:
-            return 60.0   # Manageable but not ideal
+            return 60.0  
         elif skill_gap <= 4:
-            return 35.0   # Significant gap, frustration likely
+            return 35.0  
         else:
-            return 10.0   # Too big a gap, will be frustrated or bored
+            return 10.0  
     
     def calculate_genre_comfort_utility(
         self, 
@@ -136,17 +134,16 @@ class AdversarialQualityPredictor:
         
         overlap_ratio = len(overlap) / len(musician_genres)
         
-        # Sweet spot: 50-100% overlap
         if overlap_ratio >= 0.75:
-            return 100.0  # Very comfortable
+            return 100.0 
         elif overlap_ratio >= 0.5:
-            return 90.0   # Good balance of familiar and new
+            return 90.0   
         elif overlap_ratio >= 0.33:
-            return 65.0   # Some common ground
+            return 65.0 
         elif overlap_ratio > 0:
-            return 40.0   # Mostly unfamiliar
+            return 40.0 
         else:
-            return 10.0   # No common genres!
+            return 10.0 
     
     def calculate_role_satisfaction_utility(
         self, 
@@ -163,26 +160,24 @@ class AdversarialQualityPredictor:
         # Calculate average improvisation preference
         avg_improv = sum(m.personality_improviser for m in session_musicians) / len(session_musicians)
         
-        # If musician is strong improviser (>0.7)
         if musician.personality_improviser > 0.7:
             if avg_improv > 0.6:
-                return 100.0  # Everyone likes to improvise!
+                return 100.0 
             elif avg_improv > 0.4:
-                return 75.0   # Mixed, but workable
+                return 75.0
             else:
-                return 40.0   # Too structured for this musician
+                return 40.0  
         
-        # If musician prefers structure (<0.3)
         elif musician.personality_improviser < 0.3:
             if avg_improv < 0.4:
-                return 100.0  # Everyone likes structure!
+                return 100.0 
             elif avg_improv < 0.6:
-                return 75.0   # Mixed, but workable
+                return 75.0 
             else:
-                return 40.0   # Too much improv for this musician
+                return 40.0  
         
-        else:  # Flexible
-            return 85.0  # Happy with most styles
+        else: 
+            return 85.0  
     
     def calculate_musician_utility(
         self, 
@@ -240,18 +235,17 @@ class AdversarialQualityPredictor:
         min_utility = min(utilities)
         max_utility = max(utilities)
         
-        # Calculate variance (how unequal is the satisfaction?)
+        # Calculate variance
         variance = sum((u - avg_utility) ** 2 for u in utilities) / len(utilities)
         
         # Nash Equilibrium stability score
-        # High if min_utility is high (no one wants to leave)
         stability_score = min_utility
         
-        # Overall quality (weighted combination)
+        # Overall quality
         quality_score = (
-            0.4 * avg_utility +      # Average happiness
-            0.4 * min_utility +       # Weakest link (Nash Equilibrium)
-            0.2 * (100 - variance)    # Fairness (low variance is good)
+            0.4 * avg_utility +  
+            0.4 * min_utility +    
+            0.2 * (100 - variance)  
         )
         
         return {
@@ -262,7 +256,7 @@ class AdversarialQualityPredictor:
             'max_utility': round(max_utility, 1),
             'variance': round(variance, 1),
             'musician_utilities': musician_details,
-            'nash_equilibrium_satisfied': min_utility > 60.0  # Threshold for stability
+            'nash_equilibrium_satisfied': min_utility > 60.0 
         }
 
 # Test the predictor
@@ -274,7 +268,7 @@ if __name__ == "__main__":
     musicians = solver.load_musicians('data/musicians_dataset.json')
     
     # Create a test session
-    test_session = musicians[:4]  # First 4 musicians
+    test_session = musicians[:4] 
     
     print("Testing Adversarial Quality Predictor")
     print("="*60)
