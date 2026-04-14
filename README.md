@@ -19,16 +19,14 @@ JamSync uses constraint satisfaction (CSP), adversarial search, and A* algorithm
 # Install dependencies
 pip install flask flask-cors numpy matplotlib
 
-# Run CLI demo
-python3 demo.py
-
-# Or run algorithm comparison
+# Run algorithm comparison (recommended)
 python3 backend/csp_solver.py
 
-# Or start web interface
-python3 backend/api.py  # Terminal 1
-cd frontend && python3 -m http.server 8000  # Terminal 2
-# Open http://localhost:8000
+# Or generate visualizations
+python3 analysis/create_visualizations.py
+
+# Or start web API
+python3 backend/api.py
 ```
 
 ---
@@ -46,14 +44,14 @@ jamsync/
 │   ├── astar_grouping.py            # A* with domain heuristics
 │   └── api.py                       # Flask REST API
 ├── analysis/
-│   ├── create_visualizations.py     # Generate charts
-│   ├── algorithm_comparison.png
-│   └── quality_tradeoff.png
+│   ├── create_visualizations.py     # Generate comparison charts
+│   ├── algorithm_comparison.png     # 4-panel comparison
+│   └── quality_tradeoff.png         # Scatter plot
+├── frontend/
+│   └── index.html                   # Web interface
 ├── tests/
 │   └── test_csp.py                  # Unit tests
-├── frontend/
-│   └── index.html                   # Web UI
-└── demo.py                          # CLI interface
+└── README.md
 ```
 
 ---
@@ -61,6 +59,8 @@ jamsync/
 ## How It Works
 
 ### 1. Constraint Satisfaction (CSP)
+
+**File:** `backend/csp_solver.py`
 
 **Hard Constraints:**
 - Availability overlap (all musicians free at same time)
@@ -73,24 +73,101 @@ jamsync/
 - Genre overlap: 40% weight
 - Personality balance: 20% weight
 
-**Algorithm:** Backtracking with forward checking, constraint ordering
+**Algorithm:** Backtracking with forward checking
+
+**Run it:**
+```bash
+python3 backend/csp_solver.py
+```
 
 ### 2. Adversarial Search
 
-Models musicians with competing objectives (spotlight time, skill validation, genre comfort). Uses Nash Equilibrium: session is stable if no musician would unilaterally leave (min utility > 60%).
+**File:** `backend/adversarial_quality.py`
+
+Models musicians with competing objectives (spotlight time, skill validation, genre comfort). Uses Nash Equilibrium: session is stable if no musician would leave (min utility > 60%).
 
 **Quality Formula:**
 ```
 Q = 0.4×mean(utility) + 0.4×min(utility) + 0.2×(100 - variance)
 ```
 
+**Test it:**
+```bash
+python3 backend/adversarial_quality.py
+```
+
 ### 3. A* Search
 
+**File:** `backend/astar_grouping.py`
+
 Finds optimal groups using four heuristics:
-- **Instrument synergy** (30%): Rewards balanced combinations
-- **Skill variance** (30%): Goldilocks principle (1-3 point spread)
-- **Genre consensus** (25%): Requires shared vocabulary
-- **Role balance** (15%): 1-2 leaders optimal
+- Instrument synergy (30%): Balanced combinations
+- Skill variance (30%): Goldilocks principle (1-3 point spread)
+- Genre consensus (25%): Shared vocabulary
+- Role balance (15%): 1-2 leaders optimal
+
+**Test it:**
+```bash
+python3 backend/astar_grouping.py
+```
+
+---
+
+## Running the System
+
+### Algorithm Comparison (Main Demo)
+
+```bash
+python3 backend/csp_solver.py
+```
+
+**What it does:**
+- Runs all 3 algorithms (Greedy, A*, Hybrid)
+- Shows comparative results
+- Displays detailed session breakdowns
+
+**Output:**
+```
+======================================================================
+ALGORITHM COMPARISON
+======================================================================
+
+Algorithm                      Sessions     Match Rate      Avg Quality    
+----------------------------------------------------------------------
+Greedy CSP                     10           54.0%           71.1%
+CSP + A*                       10           37.0%           90.8%
+Hybrid (A* + Adversarial)      10           37.0%           79.3%
+```
+
+### Generate Visualizations
+
+```bash
+python3 analysis/create_visualizations.py
+```
+
+Creates PNG charts in `analysis/` folder for paper.
+
+### Run Unit Tests
+
+```bash
+python3 tests/test_csp.py
+```
+
+Validates constraint checking and solver functionality.
+
+### Web Interface (Optional)
+
+**Backend:**
+```bash
+python3 backend/api.py
+```
+
+**Frontend:**
+```bash
+cd frontend
+python3 -m http.server 8000
+# Open http://localhost:8000
+```
 
 ---
 
@@ -102,23 +179,29 @@ Finds optimal groups using four heuristics:
 | CSP + A* | 10 | 37% | 90.8% | 2.1s |
 | Hybrid | 10 | 37% | 79.3% | 2.4s |
 
-**Key Finding:** A* achieves 27.7% higher quality but matches fewer musicians, demonstrating fundamental quality-quantity tradeoff.
+**Key Finding:** A* achieves 27.7% higher quality than greedy but matches fewer musicians, demonstrating quality-quantity tradeoff.
 
-**Best Session:** A* found 100% quality session (bass, drums, guitar, keys with skills 3,6,6,6)
+**Visualizations:** See `analysis/algorithm_comparison.png` and `analysis/quality_tradeoff.png`
 
 ---
 
 ## Dataset
 
-**Source:** Synthetically generated (100 musicians)  
-**Distributions:** Guitar (30%), Vocals (20%), Keys (15%), Drums (10%), Bass (10%), Other (15%)  
-**Skills:** Normal distribution (μ=6, σ=2), range [1-10]  
-**Genres:** 10 categories, 2-4 per musician  
-**Availability:** 2-6 slots from 42 possible windows  
+**Source:** Synthetic (100 musicians)  
+**Generation:** `python3 data/generate_dataset.py`
 
-**Regenerate:**
+**Statistics:**
+- Instruments: Guitar 30%, Vocals 20%, Keys 15%, Drums 10%, Bass 10%, Other 15%
+- Skills: Normal distribution (μ=6, σ=2)
+- Genres: 10 categories, 2-4 per musician
+- Availability: 2-6 time slots from 42 windows
+
+---
+
+## Dependencies
+
 ```bash
-python3 data/generate_dataset.py
+pip install flask flask-cors numpy matplotlib
 ```
 
 ---
@@ -129,15 +212,12 @@ python3 data/generate_dataset.py
 python3 tests/test_csp.py
 ```
 
-All tests validate:
-- Constraint enforcement (group size, rhythm, availability)
-- Quality scoring accuracy
-- Solver correctness
+Tests constraint enforcement, quality scoring, and solver correctness. All tests pass.
 
 ---
 
 ## References
 
-- Burke, E. K., et al. (1997). University timetabling using genetic algorithms and CSP
-- Schaerf, A. (1999). Survey of automated timetabling. AI Review, 13(2), 87-127
-- Gusfield, D. & Irving, R. W. (1989). The Stable Marriage Problem. MIT Press
+- Burke, E. K., et al. (1997). University timetabling using CSP
+- Schaerf, A. (1999). Survey of automated timetabling
+- Gusfield, D. & Irving, R. W. (1989). The Stable Marriage Problem
