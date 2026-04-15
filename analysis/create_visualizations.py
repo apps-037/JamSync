@@ -137,7 +137,7 @@ def create_comparison_charts(results):
         os.makedirs(output_dir)
     
     plt.savefig(f'{output_dir}/algorithm_comparison.png', dpi=300, bbox_inches='tight')
-    print(f"\n✅ Saved comparison chart to {output_dir}/algorithm_comparison.png")
+    print(f"\n Saved comparison chart to {output_dir}/algorithm_comparison.png")
     
     plt.show()
 
@@ -175,7 +175,7 @@ def create_quality_tradeoff_scatter(results):
     
     plt.tight_layout()
     plt.savefig('analysis/quality_tradeoff.png', dpi=300, bbox_inches='tight')
-    print(f"✅ Saved tradeoff chart to analysis/quality_tradeoff.png")
+    print(f" Saved tradeoff chart to analysis/quality_tradeoff.png")
     plt.show()
 
 def print_summary_table(results):
@@ -224,6 +224,6 @@ if __name__ == "__main__":
     print_summary_table(results)
     
     print("\n" + "="*60)
-    print("✅ All visualizations complete!")
-    print("📁 Check the analysis/ folder for PNG files")
+    print(" All visualizations complete!")
+    print(" Check the analysis/ folder for PNG files")
     print("="*60)

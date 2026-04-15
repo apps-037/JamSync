@@ -55,7 +55,6 @@ class ConstraintChecker:
     @staticmethod
     def calculate_skill_compatibility(musicians):
         # musicians should have similar skill levels
-        # within 2-4 points is good
         
         if not musicians:
             return 0.0
@@ -106,8 +105,6 @@ class ConstraintChecker:
     
     @staticmethod
     def calculate_personality_balance(musicians):
-        # balance of leaders vs supporters
-        # 1-2 leaders is ideal
         
         if not musicians:
             return 0.0
@@ -126,7 +123,6 @@ class ConstraintChecker:
     
     def calculate_session_quality(self, musicians):
         # overall quality combines skill, genre, and personality
-        # weighted 40-40-20 based on what seemed to work best
         
         skill_score = self.calculate_skill_compatibility(musicians)
         genre_score = self.calculate_genre_compatibility(musicians)
@@ -222,7 +218,6 @@ class BasicCSPSolver:
             if not session_musicians or len(session_musicians) < 3:
                 return None
         
-        # otherwise use greedy
         else:
             session_musicians = []
             rhythm_players = []

@@ -1,6 +1,5 @@
 # adversarial_quality.py
 # Quality prediction using Nash Equilibrium from game theory
-# Based on Russell & Norvig Ch 5 (adversarial search)
 
 from typing import List, Dict
 from dataclasses import dataclass

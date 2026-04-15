@@ -18,9 +18,6 @@ class SearchNode:
 class GroupFormationHeuristics:
     
     def h_instrument_synergy(self, group):
-        # certain instruments work better together
-        # guitar+bass+drums is a classic trio
-        # 3 guitars is redundant
         
         if not group:
             return 0.0
@@ -74,8 +71,6 @@ class GroupFormationHeuristics:
         return score
     
     def h_skill_variance(self, group):
-        # goldilocks principle - not too similar, not too different
-        # 1-3 point spread is ideal
         
         if len(group) < 2:
             return 100.0
@@ -87,9 +82,9 @@ class GroupFormationHeuristics:
         skill_range = max(skills) - min(skills)
         
         if skill_range == 0:
-            return 50.0  # all same = boring
+            return 50.0 
         elif skill_range <= 2:
-            return 100.0  # perfect
+            return 100.0 
         elif skill_range <= 3:
             return 85.0
         elif skill_range <= 4:
@@ -97,11 +92,9 @@ class GroupFormationHeuristics:
         elif skill_range <= 5:
             return 35.0
         else:
-            return 10.0  # too big a gap
+            return 10.0 
     
     def h_genre_consensus(self, group):
-        # need common musical language
-        # at least half the group should share genres
         
         if len(group) < 2:
             return 100.0
@@ -122,9 +115,8 @@ class GroupFormationHeuristics:
                 common_genres.append(g)
         
         if not common_genres:
-            return 20.0  # no common ground
+            return 20.0
         
-        # how strong is the consensus?
         consensus_strength = 0
         for g in common_genres:
             consensus_strength += genre_counts[g]
@@ -140,8 +132,6 @@ class GroupFormationHeuristics:
         return total
     
     def h_role_balance(self, group):
-        # balance of leaders vs supporters
-        # 1-2 leaders is ideal
         
         if not group:
             return 100.0
@@ -163,15 +153,14 @@ class GroupFormationHeuristics:
         elif leaders == 1 and flexible >= 2:
             return 85.0
         elif leaders == 0 and supporters >= 2:
-            return 50.0  # no direction
+            return 50.0 
         elif leaders >= 3:
-            return 30.0  # too many chiefs
+            return 30.0 
         else:
             return 70.0
     
     def combined_heuristic(self, group):
         # combine all 4 heuristics
-        # weighted based on what seems to matter most
         
         synergy = self.h_instrument_synergy(group)
         variance = self.h_skill_variance(group)
@@ -225,7 +214,6 @@ class AStarGroupFormation:
     
     def search(self, available_musicians, time_slot, max_group_size=6):
         # A* search implementation
-        # based on textbook algorithm (Russell & Norvig ch 3)
         
         self.nodes_explored = 0
         
@@ -251,7 +239,7 @@ class AStarGroupFormation:
             
             current_group = current.musicians
             
-            # make a signature to check if we've seen this state
+            # signature to check if we've seen this state
             ids = []
             for m in current_group:
                 ids.append(m.id)
@@ -261,7 +249,6 @@ class AStarGroupFormation:
                 continue
             explored.add(state_signature)
             
-            # is this a valid goal?
             if self.is_goal_state(current_group, time_slot):
                 quality = self.heuristics.combined_heuristic(current_group)
                 
@@ -272,7 +259,6 @@ class AStarGroupFormation:
                 if len(current_group) >= max_group_size:
                     continue
             
-            # expand this node
             remaining_pool = []
             for m in current.available_pool:
                 if m not in current_group:
